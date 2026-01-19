@@ -1,12 +1,12 @@
 # Implementation Plan - Build Core Snoring Detection & Alert System
 
-## Phase 1: Environment & Project Structure
+## Phase 1: Environment & Project Structure [checkpoint: 4cafed0]
 - [x] Task: Initialize Project with uv d9f030b
-    - [ ] Initialize a new Python project using `uv init`.
-    - [ ] Create a virtual environment and activate it.
-    - [ ] Add `pyaudio`, `numpy`, `python-telegram-bot`, and `python-dotenv` as dependencies using `uv add`.
-    - [ ] Create a `.env.example` file for configuration templates (Telegram Token, Chat ID, Sensitivity).
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Environment & Project Structure' (Protocol in workflow.md)
+    - [x] Initialize a new Python project using `uv init`.
+    - [x] Create a virtual environment and activate it.
+    - [x] Add `pyaudio`, `numpy`, `python-telegram-bot`, and `python-dotenv` as dependencies using `uv add`.
+    - [x] Create a `.env.example` file for configuration templates (Telegram Token, Chat ID, Sensitivity).
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Environment & Project Structure' (Protocol in workflow.md) a24fef1
 
 ## Phase 2: Core Audio Capture & Analysis
 - [ ] Task: Implement Audio Capture Class
