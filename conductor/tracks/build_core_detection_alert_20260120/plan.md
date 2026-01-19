@@ -1,7 +1,7 @@
 # Implementation Plan - Build Core Snoring Detection & Alert System
 
 ## Phase 1: Environment & Project Structure
-- [ ] Task: Initialize Project with uv
+- [x] Task: Initialize Project with uv d9f030b
     - [ ] Initialize a new Python project using `uv init`.
     - [ ] Create a virtual environment and activate it.
     - [ ] Add `pyaudio`, `numpy`, `python-telegram-bot`, and `python-dotenv` as dependencies using `uv add`.
