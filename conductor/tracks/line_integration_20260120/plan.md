@@ -1,7 +1,7 @@
 # Implementation Plan - LINE Messaging API Integration
 
 ## Phase 1: Dependency & Configuration
-- [ ] Task: Add line-bot-sdk dependency
+- [x] Task: Add line-bot-sdk dependency 5d61d52
     - [ ] Run `uv add line-bot-sdk` to install the library.
     - [ ] Update `tech-stack.md` to include `line-bot-sdk`.
 - [ ] Task: Update Configuration Logic
