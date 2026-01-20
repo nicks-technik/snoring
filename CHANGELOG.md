@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.3] - 2026-01-20
+
+### Added
+- **LINE Integration:** Added support for sending alerts via the LINE Messaging API.
+- **Explicit Notifier Control:** Added `FRITZ_ENABLED` and `LINE_ENABLED` environment variables to explicitly toggle intervention methods.
+- **Improved Orchestration:** Enhanced `SnoreDetector` to handle a dynamic list of notifiers.
+
 ## [0.1.1] - 2026-01-20
 
 ### Added
