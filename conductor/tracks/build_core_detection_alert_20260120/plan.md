@@ -27,7 +27,7 @@
     - [ ] Create a `TelegramNotifier` class using `python-telegram-bot`.
     - [ ] Implement an asynchronous method `send_alert(message)`.
     - [ ] Write an integration test (or manual script) to verify a test message can be sent.
-- [ ] Task: Integrate Alerting with Detection
+- [x] Task: Integrate Alerting with Detection 50e8d0d
     - [ ] Update `SnoreDetector` to trigger `TelegramNotifier.send_alert` when the threshold is breached.
     - [ ] Add a cooldown mechanism to prevent spamming messages (e.g., only one alert per minute).
 - [ ] Task: Finalize CLI Entry Point
