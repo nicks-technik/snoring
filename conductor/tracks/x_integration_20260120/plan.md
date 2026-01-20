@@ -4,7 +4,7 @@
 - [x] Task: Add tweepy dependency b7b93b4
     - [ ] Run `uv add tweepy` to install the library.
     - [ ] Update `tech-stack.md` to include `tweepy`.
-- [ ] Task: Update Configuration Logic
+- [x] Task: Update Configuration Logic d8bdcef
     - [ ] Update `.env.example` with `X_ENABLED`, `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_SECRET`, and `X_RECIPIENT_ID`.
     - [ ] Update `snoring/cli.py` to load these new environment variables.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Dependency & Configuration' (Protocol in workflow.md)
