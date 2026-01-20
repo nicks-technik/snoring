@@ -16,7 +16,7 @@
 - [x] Task: Implement RMS Analysis ebe6800
     - [ ] Create a utility function `calculate_rms(audio_chunk)` using `numpy`.
     - [ ] Write unit tests with known byte arrays to verify RMS calculation accuracy.
-- [ ] Task: Create Main Monitoring Loop
+- [x] Task: Create Main Monitoring Loop 55293b5
     - [ ] Create a `SnoreDetector` class that orchestrates the recorder and analysis.
     - [ ] Implement the logic: Read Chunk -> Calculate RMS -> Compare with Threshold.
     - [ ] Add logging to output current RMS values for debugging/calibration.
