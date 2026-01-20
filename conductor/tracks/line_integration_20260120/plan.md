@@ -18,7 +18,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: LineNotifier Implementation' (Protocol in workflow.md) 3adb979
 
 ## Phase 3: Integration & Orchestration
-- [ ] Task: Wire up LINE in CLI
+- [x] Task: Wire up LINE in CLI e802d6a
     - [ ] Update `snoring/cli.py` to instantiate `LineNotifier` if `LINE_ENABLED` is set to True.
     - [ ] Add the `LineNotifier` instance to the list of notifiers passed to the `SnoreDetector`.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Integration & Orchestration' (Protocol in workflow.md)
