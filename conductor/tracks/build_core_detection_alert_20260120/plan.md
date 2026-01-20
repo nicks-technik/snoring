@@ -9,7 +9,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Environment & Project Structure' (Protocol in workflow.md) a24fef1
 
 ## Phase 2: Core Audio Capture & Analysis
-- [ ] Task: Implement Audio Capture Class
+- [x] Task: Implement Audio Capture Class ec40798
     - [ ] Create a `AudioRecorder` class that wraps `PyAudio` stream initialization.
     - [ ] Implement a method to read chunks of audio data.
     - [ ] Write a unit test to verify the stream opens and closes correctly (mocking PyAudio).
