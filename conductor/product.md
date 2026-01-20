@@ -17,6 +17,7 @@ The application's fundamental goal is to detect snoring events in real-time with
 3.  **Telegram Integration:** An initial alerting mechanism that sends a Telegram message upon detecting a snoring event, serving as a simple, effective wake-up trigger.
 4.  **Fritz!Box Intervention:** An advanced alerting mechanism that triggers an internal phone call via a local Fritz!Box, designed to vibrate a connected smartwatch for a silent wake-up nudge.
 5.  **LINE Messaging Integration:** An alternative messaging-based intervention using the LINE Messaging API to send notifications upon snoring detection.
+6.  **X.com (Twitter) Integration:** Redundant alerting via X.com Direct Messages to provide an additional layer of notification platform choice.
 
 ## Data & Privacy Strategy
 The system prioritizes detection accuracy, reliability, and efficiency above all else. While logging capabilities are secondary, the core focus is on robust, low-latency processing of audio data to ensure timely interventions.
