@@ -62,9 +62,19 @@ This application monitors audio from your default input device to identify snori
 - **`LINE_USER_ID`**: Found at the bottom of the "Messaging API" tab in the LINE Developers Console (Your user ID).
 
 #### X.com (Twitter)
-- **`X_API_KEY`** & **`X_API_SECRET`**: Create an app in the [X Developer Portal](https://developer.twitter.com/en/portal/dashboard). Found under "Keys and Tokens" as Consumer Keys.
-- **`X_ACCESS_TOKEN`** & **`X_ACCESS_SECRET`**: Generated in the same portal under "Keys and Tokens" > "Authentication Tokens". Ensure the app has "Read and Write" permissions.
-- **`X_RECIPIENT_ID`**: Your numeric X User ID. You can find this using tools like [CommentPicker's Twitter ID tool](https://commentpicker.com/twitter-id.php) or via the API itself.
+To send Direct Messages, you need an **X Developer Account** (Free or Basic tier).
+1.  **Create an App:** Go to the [X Developer Portal](https://developer.x.com/en/portal/dashboard).
+2.  **App Permissions:** Navigate to **App Settings > User authentication settings**. Set "App permissions" to **Read and write and Direct message**.
+3.  **Consumer Keys:** Go to the **Keys and Tokens** tab.
+    -   **`X_API_KEY`**: Found under "API Key and Secret".
+    -   **`X_API_SECRET`**: Found under "API Key and Secret".
+4.  **Authentication Tokens:** In the same tab, under "Access Token and Secret":
+    -   **`X_ACCESS_TOKEN`**: Generate your Access Token.
+    -   **`X_ACCESS_SECRET`**: Generate your Access Token Secret.
+5.  **`X_RECIPIENT_ID`**: This is your unique **numeric** ID (not your @username).
+    -   Go to your App's **Keys and Tokens** tab.
+    -   Your own numeric ID is usually displayed right next to your username in the "Access Token and Secret" section.
+    -   Alternatively, find it by searching your username on [TweeterID](https://tweeterid.com/).
 
 ## Usage
 Run the application using `uv`:
