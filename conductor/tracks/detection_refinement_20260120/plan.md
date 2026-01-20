@@ -15,7 +15,7 @@
     - [ ] Write unit tests in `tests/test_audio_utils.py` to verify ZCR calculation for different simulated waveforms (e.g., low-frequency sine vs. high-frequency noise).
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Audio Utilities Enhancement' (Protocol in workflow.md) d5b4715
 
-## Phase 3: Detector Refinement
+## Phase 3: Detector Refinement [checkpoint: f1191e3]
 - [x] Task: Update SnoreDetector Logic 941aaa3
     - [ ] Refactor `SnoreDetector.step_async` in `snoring/detector.py` to incorporate the ZCR check.
     - [ ] Update `__init__` to accept `zcr_threshold`.
@@ -23,4 +23,4 @@
     - [ ] Write unit tests in `tests/test_detector.py` mocking `calculate_zcr` to verify the multi-stage detection logic.
 - [x] Task: Wire up ZCR in CLI 7961eb6
     - [ ] Update `snoring/cli.py` to pass the loaded `zcr_threshold` to the `SnoreDetector` instance.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Detector Refinement' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Detector Refinement' (Protocol in workflow.md) f1191e3
