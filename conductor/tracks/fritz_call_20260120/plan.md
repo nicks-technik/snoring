@@ -17,11 +17,11 @@
     - [ ] Write unit tests mocking `FritzConnection` to verify dial and hangup sequences.
 - [x] Task: Conductor - User Manual Verification 'Phase 2: FritzNotifier Implementation' (Protocol in workflow.md) c64bfe2
 
-## Phase 3: Integration & Orchestration
+## Phase 3: Integration & Orchestration [checkpoint: ce57ec4]
 - [x] Task: Update SnoreDetector 49834b6
     - [ ] Refactor `SnoreDetector` to accept a list of notifiers.
     - [ ] Ensure `step_async` triggers all configured notifiers.
 - [x] Task: Wire up in CLI d514101
     - [ ] Update `snoring/cli.py` to instantiate `FritzNotifier` if config is present.
     - [ ] Pass the list of notifiers to the detector.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Integration & Orchestration' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Integration & Orchestration' (Protocol in workflow.md) ce57ec4
