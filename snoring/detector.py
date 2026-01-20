@@ -3,7 +3,7 @@
 import logging
 import time
 from typing import Callable, Optional
-from snoring.audio_utils import calculate_rms
+from snoring.audio_utils import calculate_rms, calculate_zcr
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +16,8 @@ class SnoreDetector:
         threshold: float,
         on_detection: Optional[Callable[[], None]] = None,
         notifier = None,
-        cooldown_seconds: int = 60
+        cooldown_seconds: int = 60,
+        zcr_threshold: float = 0.1
     ):
         """Initializes the snore detector.
 
@@ -26,6 +27,7 @@ class SnoreDetector:
             on_detection: A callback function to execute when snoring is detected.
             notifier: A single notifier instance or a list of notifiers.
             cooldown_seconds: Minimum seconds between alerts.
+            zcr_threshold: The maximum Zero-Crossing Rate to consider as snoring.
         """
         self.recorder = recorder
         self.threshold = threshold
@@ -40,6 +42,7 @@ class SnoreDetector:
             self.notifier = [notifier]
             
         self.cooldown_seconds = cooldown_seconds
+        self.zcr_threshold = zcr_threshold
         self.last_alert_time = 0.0
 
     def step(self) -> bool:
@@ -54,10 +57,17 @@ class SnoreDetector:
         rms = calculate_rms(chunk)
         
         if rms > self.threshold:
-            logger.info(f"[DETECT] Snoring detected! RMS: {rms:.2f}")
-            if self.on_detection:
-                self.on_detection()
-            return True
+            # Secondary check: ZCR
+            zcr = calculate_zcr(chunk)
+            logger.info(f"Potential snore detected. RMS: {rms:.2f}, ZCR: {zcr:.4f}")
+            
+            if zcr <= self.zcr_threshold:
+                logger.info(f"[DETECT] Snoring confirmed! RMS: {rms:.2f}, ZCR: {zcr:.4f}")
+                if self.on_detection:
+                    self.on_detection()
+                return True
+            else:
+                logger.debug(f"Filtered out (high ZCR). RMS: {rms:.2f}, ZCR: {zcr:.4f}")
             
         return False
 
@@ -71,24 +81,31 @@ class SnoreDetector:
         rms = calculate_rms(chunk)
         
         if rms > self.threshold:
-            logger.info(f"[DETECT] Snoring detected! RMS: {rms:.2f}")
-            if self.on_detection:
-                self.on_detection()
+            # Secondary check: ZCR
+            zcr = calculate_zcr(chunk)
+            logger.info(f"Potential snore detected. RMS: {rms:.2f}, ZCR: {zcr:.4f}")
             
-            # Handle Notifiers with Cooldown
-            if self.notifier:
-                current_time = time.time()
-                if current_time - self.last_alert_time >= self.cooldown_seconds:
-                    for n in self.notifier:
-                        try:
-                            await n.send_alert("Snoring detected!")
-                        except Exception as e:
-                            logger.error(f"Notifier {n.__class__.__name__} failed: {e}")
-                    self.last_alert_time = current_time
-                else:
-                    logger.debug("Alert skipped due to cooldown.")
-            
-            return True
+            if zcr <= self.zcr_threshold:
+                logger.info(f"[DETECT] Snoring confirmed! RMS: {rms:.2f}, ZCR: {zcr:.4f}")
+                if self.on_detection:
+                    self.on_detection()
+                
+                # Handle Notifiers with Cooldown
+                if self.notifier:
+                    current_time = time.time()
+                    if current_time - self.last_alert_time >= self.cooldown_seconds:
+                        for n in self.notifier:
+                            try:
+                                await n.send_alert("Snoring detected!")
+                            except Exception as e:
+                                logger.error(f"Notifier {n.__class__.__name__} failed: {e}")
+                        self.last_alert_time = current_time
+                    else:
+                        logger.debug("Alert skipped due to cooldown.")
+                
+                return True
+            else:
+                logger.debug(f"Filtered out (high ZCR). RMS: {rms:.2f}, ZCR: {zcr:.4f}")
             
         return False
 
