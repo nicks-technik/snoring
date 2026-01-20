@@ -4,7 +4,7 @@
 - [x] Task: Add librosa dependency 2fee586
     - [ ] Run `uv add librosa` to install the library.
     - [ ] Update `tech-stack.md` to include `librosa`.
-- [ ] Task: Update Configuration Logic
+- [x] Task: Update Configuration Logic 2fec477
     - [ ] Update `.env.example` with `ZCR_THRESHOLD` (e.g., default 0.1).
     - [ ] Update `snoring/cli.py` to load and parse the `ZCR_THRESHOLD` environment variable.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Dependency & Configuration' (Protocol in workflow.md)
