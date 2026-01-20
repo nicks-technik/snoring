@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.4] - 2026-01-20
+
+### Added
+- **Detailed Alerts:** Notification messages (Telegram, LINE) now include detection metrics: RMS (intensity) and ZCR (frequency).
+- **ZCR Filtering:** Improved snoring detection algorithm using Zero-Crossing Rate to filter out high-frequency false positives like speech and coughing.
+- **Git Maintenance:** Added `.coverage` to `.gitignore` and removed it from the repository.
+
 ## [0.1.3] - 2026-01-20
 
 ### Added
