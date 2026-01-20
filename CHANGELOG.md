@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.5] - 2026-01-20
+
+### Added
+- **X.com Integration:** Support for sending Direct Messages via the X.com (Twitter) API v2.
+- **Configurable Notifiers:** Added `X_ENABLED` toggle.
+
+### Fixed
+- **Fritz!Box Compatibility:** Corrected service and action names for improved hardware compatibility.
+- **Detector Reliability:** Fixed a bug that allowed overlapping alert triggers during notification processing.
+- **Project Structure:** Added `snoring.egg-info/` to `.gitignore`.
+
 ## [0.1.4] - 2026-01-20
 
 ### Added
