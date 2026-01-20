@@ -21,6 +21,6 @@
     - [ ] Update `__init__` to accept `zcr_threshold`.
     - [ ] Ensure logging includes both RMS and ZCR values during detection.
     - [ ] Write unit tests in `tests/test_detector.py` mocking `calculate_zcr` to verify the multi-stage detection logic.
-- [~] Task: Wire up ZCR in CLI
+- [x] Task: Wire up ZCR in CLI 7961eb6
     - [ ] Update `snoring/cli.py` to pass the loaded `zcr_threshold` to the `SnoreDetector` instance.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Detector Refinement' (Protocol in workflow.md)
