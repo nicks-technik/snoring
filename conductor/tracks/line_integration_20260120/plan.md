@@ -9,13 +9,13 @@
     - [ ] Update `snoring/cli.py` to load these new environment variables.
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Dependency & Configuration' (Protocol in workflow.md) 3f9717f
 
-## Phase 2: LineNotifier Implementation
+## Phase 2: LineNotifier Implementation [checkpoint: 3adb979]
 - [x] Task: Implement LineNotifier Class d8d082e
     - [ ] Create `snoring/line_notifier.py`.
     - [ ] Implement `__init__` to initialize the LINE API client.
     - [ ] Implement `send_alert()` method using the `push_message` functionality.
     - [ ] Write unit tests mocking the `line-bot-sdk` to verify message delivery and error handling.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: LineNotifier Implementation' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: LineNotifier Implementation' (Protocol in workflow.md) 3adb979
 
 ## Phase 3: Integration & Orchestration
 - [ ] Task: Wire up LINE in CLI
