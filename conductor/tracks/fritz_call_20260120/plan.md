@@ -9,13 +9,13 @@
     - [ ] Update `snoring/cli.py` to load these new environment variables.
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Dependency & Configuration' (Protocol in workflow.md) 2d199c1
 
-## Phase 2: FritzNotifier Implementation
+## Phase 2: FritzNotifier Implementation [checkpoint: c64bfe2]
 - [x] Task: Implement FritzNotifier Class de0fe3d
     - [ ] Create `snoring/fritz_notifier.py`.
     - [ ] Implement `__init__` to establish connection using `FritzConnection`.
     - [ ] Implement `send_alert()` method which calls `X_AVM-DE_DialNumber`, waits `FRITZ_RING_DURATION`, and calls `X_AVM-DE_HangUp`.
     - [ ] Write unit tests mocking `FritzConnection` to verify dial and hangup sequences.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: FritzNotifier Implementation' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: FritzNotifier Implementation' (Protocol in workflow.md) c64bfe2
 
 ## Phase 3: Integration & Orchestration
 - [ ] Task: Update SnoreDetector
