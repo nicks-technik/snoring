@@ -16,6 +16,7 @@ async def test_cli_run_app_success(mock_detector_class, mock_fritz_class, mock_t
         'TELEGRAM_CHAT_ID': 'test_chat_id',
         'SENSITIVITY_THRESHOLD': '1000.0',
         'INTERVAL_SECONDS': '120',
+        'FRITZ_ENABLED': 'True',
         'FRITZ_ADDRESS': '1.2.3.4',
         'FRITZ_USER': 'u',
         'FRITZ_PASSWORD': 'p',

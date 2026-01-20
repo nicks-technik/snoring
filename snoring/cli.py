@@ -37,6 +37,7 @@ async def run_app():
     except (ValueError, TypeError):
         interval = 60
 
+    fritz_enabled = os.getenv("FRITZ_ENABLED", "False").lower() == "true"
     fritz_address = os.getenv("FRITZ_ADDRESS")
     fritz_user = os.getenv("FRITZ_USER")
     fritz_password = os.getenv("FRITZ_PASSWORD")
@@ -64,8 +65,8 @@ async def run_app():
         # Setup Telegram Notifier
         notifiers.append(TelegramNotifier(token=token, chat_id=chat_id))
         
-        # Setup Fritz Notifier if address is provided
-        if fritz_address:
+        # Setup Fritz Notifier if enabled
+        if fritz_enabled and fritz_address:
             try:
                 fritz_notifier = FritzNotifier(
                     address=fritz_address,
