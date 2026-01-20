@@ -62,19 +62,16 @@ This application monitors audio from your default input device to identify snori
 - **`LINE_USER_ID`**: Found at the bottom of the "Messaging API" tab in the LINE Developers Console (Your user ID).
 
 #### X.com (Twitter)
-To send Direct Messages, you need an **X Developer Account** (Free or Basic tier).
-1.  **Create an App:** Go to the [X Developer Portal](https://developer.x.com/en/portal/dashboard).
-2.  **App Permissions:** Navigate to **App Settings > User authentication settings**. Set "App permissions" to **Read and write and Direct message**.
-3.  **Consumer Keys:** Go to the **Keys and Tokens** tab.
-    -   **`X_API_KEY`**: Found under "API Key and Secret".
-    -   **`X_API_SECRET`**: Found under "API Key and Secret".
-4.  **Authentication Tokens:** In the same tab, under "Access Token and Secret":
-    -   **`X_ACCESS_TOKEN`**: Generate your Access Token.
-    -   **`X_ACCESS_SECRET`**: Generate your Access Token Secret.
-5.  **`X_RECIPIENT_ID`**: This is your unique **numeric** ID (not your @username).
-    -   Go to your App's **Keys and Tokens** tab.
-    -   Your own numeric ID is usually displayed right next to your username in the "Access Token and Secret" section.
-    -   Alternatively, find it by searching your username on [TweeterID](https://tweeterid.com/).
+To send Direct Messages, you need an **X Developer Account**.
+1.  **Set Permissions First:** In the [X Developer Portal](https://developer.x.com/), go to **App Settings > User authentication settings > Edit**. Set "App permissions" to **Read and write and Direct message** and save.
+2.  **API Keys (Consumer Keys):** Go to the **Keys and Tokens** tab.
+    -   **`X_API_KEY`**: This is the **Consumer Key**.
+    -   **`X_API_SECRET`**: This is the **Consumer Secret** (Click "Regenerate" to see it).
+3.  **User Tokens (Authentication Tokens):** In the same tab, look for **Access Token and Secret**:
+    -   Click the **Generate** button next to your @username.
+    -   **`X_ACCESS_TOKEN`**: Copy the provided Access Token.
+    -   **`X_ACCESS_SECRET`**: Copy the provided Access Token Secret.
+4.  **`X_RECIPIENT_ID`**: This is your numeric ID. It is displayed in the "Access Token and Secret" section once generated.
 
 ## Usage
 Run the application using `uv`:
