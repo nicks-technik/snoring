@@ -24,13 +24,21 @@ class SnoreDetector:
             recorder: An object with a read_chunk() method.
             threshold: The RMS threshold above which snoring is detected.
             on_detection: A callback function to execute when snoring is detected.
-            notifier: A TelegramNotifier instance.
+            notifier: A single notifier instance or a list of notifiers.
             cooldown_seconds: Minimum seconds between alerts.
         """
         self.recorder = recorder
         self.threshold = threshold
         self.on_detection = on_detection
-        self.notifier = notifier
+        
+        # Ensure notifier is always a list
+        if notifier is None:
+            self.notifier = []
+        elif isinstance(notifier, list):
+            self.notifier = notifier
+        else:
+            self.notifier = [notifier]
+            
         self.cooldown_seconds = cooldown_seconds
         self.last_alert_time = 0.0
 
@@ -67,11 +75,15 @@ class SnoreDetector:
             if self.on_detection:
                 self.on_detection()
             
-            # Handle Telegram Alert with Cooldown
+            # Handle Notifiers with Cooldown
             if self.notifier:
                 current_time = time.time()
                 if current_time - self.last_alert_time >= self.cooldown_seconds:
-                    await self.notifier.send_alert("Snoring detected!")
+                    for n in self.notifier:
+                        try:
+                            await n.send_alert("Snoring detected!")
+                        except Exception as e:
+                            logger.error(f"Notifier {n.__class__.__name__} failed: {e}")
                     self.last_alert_time = current_time
                 else:
                     logger.debug("Alert skipped due to cooldown.")
