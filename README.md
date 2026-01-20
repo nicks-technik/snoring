@@ -64,14 +64,15 @@ This application monitors audio from your default input device to identify snori
 #### X.com (Twitter)
 To send Direct Messages, you need an **X Developer Account**.
 1.  **Set Permissions First:** In the [X Developer Portal](https://developer.x.com/), go to **App Settings > User authentication settings > Edit**. Set "App permissions" to **Read and write and Direct message** and save.
-2.  **API Keys (Consumer Keys):** Go to the **Keys and Tokens** tab.
-    -   **`X_API_KEY`**: This is the **Consumer Key**.
-    -   **`X_API_SECRET`**: This is the **Consumer Secret** (Click "Regenerate" to see it).
-3.  **User Tokens (Authentication Tokens):** In the same tab, look for **Access Token and Secret**:
-    -   Click the **Generate** button next to your @username.
-    -   **`X_ACCESS_TOKEN`**: Copy the provided Access Token.
-    -   **`X_ACCESS_SECRET`**: Copy the provided Access Token Secret.
-4.  **`X_RECIPIENT_ID`**: This is your numeric ID. It is displayed in the "Access Token and Secret" section once generated.
+2.  **Generate Credentials:** Go to the **Keys and Tokens** tab and use the table below to find the values for your `.env` file.
+
+| `.env` Variable | Label in X Portal | How to obtain |
+| :--- | :--- | :--- |
+| `X_API_KEY` | **Consumer Key** | Found under "API Key and Secret". |
+| `X_API_SECRET` | **Consumer Secret** | Click "Show" or "Regenerate" under Consumer Key. |
+| `X_ACCESS_TOKEN` | **Access Token** | Click **Generate** next to your @username. |
+| `X_ACCESS_SECRET` | **Access Token Secret** | Displayed immediately after clicking Generate. |
+| `X_RECIPIENT_ID` | **User ID** | Displayed next to your username once tokens are generated. |
 
 ## Usage
 Run the application using `uv`:
