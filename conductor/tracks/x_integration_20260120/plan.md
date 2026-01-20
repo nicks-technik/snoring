@@ -17,8 +17,8 @@
     - [ ] Write unit tests mocking `tweepy` to verify DM delivery and error handling.
 - [x] Task: Conductor - User Manual Verification 'Phase 2: XNotifier Implementation' (Protocol in workflow.md) 995b928
 
-## Phase 3: Integration & Orchestration
+## Phase 3: Integration & Orchestration [checkpoint: 067cd22]
 - [x] Task: Wire up X.com in CLI a990e8f
     - [ ] Update `snoring/cli.py` to instantiate `XNotifier` if `X_ENABLED` is set to True.
     - [ ] Add the `XNotifier` instance to the list of notifiers passed to the `SnoreDetector`.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Integration & Orchestration' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Integration & Orchestration' (Protocol in workflow.md) 067cd22
