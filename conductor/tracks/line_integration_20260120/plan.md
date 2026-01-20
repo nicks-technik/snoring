@@ -4,7 +4,7 @@
 - [x] Task: Add line-bot-sdk dependency 5d61d52
     - [ ] Run `uv add line-bot-sdk` to install the library.
     - [ ] Update `tech-stack.md` to include `line-bot-sdk`.
-- [ ] Task: Update Configuration Logic
+- [x] Task: Update Configuration Logic 7b5c3b0
     - [ ] Update `.env.example` with `LINE_ENABLED`, `LINE_CHANNEL_ACCESS_TOKEN`, `LINE_CHANNEL_SECRET`, and `LINE_USER_ID`.
     - [ ] Update `snoring/cli.py` to load these new environment variables.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Dependency & Configuration' (Protocol in workflow.md)
