@@ -1,7 +1,7 @@
 # Implementation Plan - Fritz!Box Internal Call Integration
 
 ## Phase 1: Dependency & Configuration
-- [ ] Task: Add fritzconnection dependency
+- [x] Task: Add fritzconnection dependency 6dae759
     - [ ] Run `uv add fritzconnection` to install the library.
     - [ ] Update `tech-stack.md` to include `fritzconnection`.
 - [ ] Task: Update Configuration Logic
