@@ -8,8 +8,9 @@ from snoring.cli import run_app
 @mock.patch('snoring.cli.load_dotenv')
 @mock.patch('snoring.cli.AudioRecorder')
 @mock.patch('snoring.cli.TelegramNotifier')
+@mock.patch('snoring.cli.FritzNotifier')
 @mock.patch('snoring.cli.SnoreDetector')
-async def test_cli_run_app_success(mock_detector_class, mock_notifier_class, mock_recorder_class, mock_dotenv):
+async def test_cli_run_app_success(mock_detector_class, mock_fritz_class, mock_telegram_class, mock_recorder_class, mock_dotenv):
     with mock.patch.dict('os.environ', {
         'TELEGRAM_BOT_TOKEN': 'test_token',
         'TELEGRAM_CHAT_ID': 'test_chat_id',
@@ -21,9 +22,10 @@ async def test_cli_run_app_success(mock_detector_class, mock_notifier_class, moc
         'FRITZ_TARGET_NUMBER': 't',
         'FRITZ_RING_DURATION': '5'
     }):
-        # Reset mocks to clear any calls during import/setup if any
+        # Reset mocks
         mock_detector_class.reset_mock()
-        mock_notifier_class.reset_mock()
+        mock_telegram_class.reset_mock()
+        mock_fritz_class.reset_mock()
         mock_recorder_class.reset_mock()
         
         mock_detector_class.return_value.start_loop_async = mock.AsyncMock()
@@ -31,15 +33,25 @@ async def test_cli_run_app_success(mock_detector_class, mock_notifier_class, moc
         await run_app()
         
         mock_recorder_class.assert_called_once()
-        mock_notifier_class.assert_called_once_with(token='test_token', chat_id='test_chat_id')
-        mock_detector_class.assert_called_once_with(
-            recorder=mock_recorder_class.return_value,
-            threshold=1000.0,
-            notifier=mock_notifier_class.return_value,
-            cooldown_seconds=120
+        mock_telegram_class.assert_called_once_with(token='test_token', chat_id='test_chat_id')
+        mock_fritz_class.assert_called_once_with(
+            address='1.2.3.4',
+            user='u',
+            password='p',
+            target_number='t',
+            ring_duration=5
         )
+        
+        # Check if both notifiers were passed in a list
+        notifiers = mock_detector_class.call_args[1]['notifier']
+        assert len(notifiers) == 2
+        assert mock_telegram_class.return_value in notifiers
+        assert mock_fritz_class.return_value in notifiers
+        
+        mock_detector_class.assert_called_once()
         mock_detector_class.return_value.start_loop_async.assert_called_once()
         mock_recorder_class.return_value.close.assert_called_once()
+
 
 @pytest.mark.asyncio
 @mock.patch('snoring.cli.os.getenv')
