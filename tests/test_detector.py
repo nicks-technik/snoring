@@ -1,0 +1,45 @@
+import unittest.mock as mock
+import pytest
+import numpy as np
+from snoring.detector import SnoreDetector
+
+def test_snore_detector_initialization():
+    mock_recorder = mock.Mock()
+    detector = SnoreDetector(recorder=mock_recorder, threshold=1000.0)
+    assert detector.threshold == 1000.0
+    assert detector.recorder == mock_recorder
+
+def test_snore_detector_step_no_detection():
+    mock_recorder = mock.Mock()
+    mock_recorder.read_chunk.return_value = b'\x00\x00' * 1024 # RMS 0
+    
+    callback = mock.Mock()
+    detector = SnoreDetector(recorder=mock_recorder, threshold=1000.0, on_detection=callback)
+    
+    detected = detector.step()
+    
+    assert not detected
+    callback.assert_not_called()
+
+def test_snore_detector_step_detection():
+    mock_recorder = mock.Mock()
+    # Constant value 2000 > threshold 1000
+    chunk = np.array([2000] * 1024, dtype=np.int16).tobytes()
+    mock_recorder.read_chunk.return_value = chunk
+    
+    callback = mock.Mock()
+    detector = SnoreDetector(recorder=mock_recorder, threshold=1000.0, on_detection=callback)
+    
+    detected = detector.step()
+    
+    assert detected
+    callback.assert_called_once()
+
+def test_snore_detector_start_loop_interrupted():
+    mock_recorder = mock.Mock()
+    detector = SnoreDetector(recorder=mock_recorder, threshold=1000.0)
+    
+    # Side effect to raise KeyboardInterrupt
+    with mock.patch.object(detector, 'step', side_effect=KeyboardInterrupt):
+        detector.start_loop()
+        detector.step.assert_called_once()
