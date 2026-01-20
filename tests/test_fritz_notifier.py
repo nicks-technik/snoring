@@ -39,7 +39,7 @@ async def test_fritz_notifier_send_alert_success():
             
             # Check dial call
             mock_instance.call_action.assert_any_call(
-                'X_VoIP:1',
+                'X_VoIP1',
                 'X_AVM-DE_DialNumber',
                 **{'NewX_AVM-DE_PhoneNumber': '**610'}
             )
@@ -49,8 +49,8 @@ async def test_fritz_notifier_send_alert_success():
             
             # Check hangup call
             mock_instance.call_action.assert_any_call(
-                'X_VoIP:1',
-                'X_AVM-DE_HangUp'
+                'X_VoIP1',
+                'X_AVM-DE_DialHangup'
             )
 
 @pytest.mark.asyncio
