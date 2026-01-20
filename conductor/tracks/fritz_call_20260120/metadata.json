@@ -1,8 +1,0 @@
-{
-  "track_id": "fritz_call_20260120",
-  "type": "feature",
-  "status": "new",
-  "created_at": "2026-01-20T02:00:00Z",
-  "updated_at": "2026-01-20T02:00:00Z",
-  "description": "Integrate Fritz!Box internal call to trigger smartwatch vibration"
-}
