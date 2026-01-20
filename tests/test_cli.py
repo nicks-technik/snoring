@@ -13,7 +13,13 @@ async def test_cli_run_app_success(mock_detector_class, mock_notifier_class, moc
     with mock.patch.dict('os.environ', {
         'TELEGRAM_BOT_TOKEN': 'test_token',
         'TELEGRAM_CHAT_ID': 'test_chat_id',
-        'SENSITIVITY_THRESHOLD': '1000.0'
+        'SENSITIVITY_THRESHOLD': '1000.0',
+        'INTERVAL_SECONDS': '120',
+        'FRITZ_ADDRESS': '1.2.3.4',
+        'FRITZ_USER': 'u',
+        'FRITZ_PASSWORD': 'p',
+        'FRITZ_TARGET_NUMBER': 't',
+        'FRITZ_RING_DURATION': '5'
     }):
         # Reset mocks to clear any calls during import/setup if any
         mock_detector_class.reset_mock()
@@ -29,7 +35,8 @@ async def test_cli_run_app_success(mock_detector_class, mock_notifier_class, moc
         mock_detector_class.assert_called_once_with(
             recorder=mock_recorder_class.return_value,
             threshold=1000.0,
-            notifier=mock_notifier_class.return_value
+            notifier=mock_notifier_class.return_value,
+            cooldown_seconds=120
         )
         mock_detector_class.return_value.start_loop_async.assert_called_once()
         mock_recorder_class.return_value.close.assert_called_once()
