@@ -45,6 +45,11 @@ async def run_app():
         fritz_duration = int(fritz_duration_str)
     except (ValueError, TypeError):
         fritz_duration = 10
+
+    line_enabled = os.getenv("LINE_ENABLED", "False").lower() == "true"
+    line_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")
+    line_secret = os.getenv("LINE_CHANNEL_SECRET")
+    line_user_id = os.getenv("LINE_USER_ID")
     
     if not token or not chat_id:
         logging.error("Telegram token or Chat ID not found in environment.")
