@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from snoring.audio_recorder import AudioRecorder
 from snoring.detector import SnoreDetector
 from snoring.notifier import TelegramNotifier
+from snoring.fritz_notifier import FritzNotifier
 
 def setup_logging():
     """Configures logging for the application."""
@@ -52,11 +53,30 @@ async def run_app():
     recorder = None
     try:
         recorder = AudioRecorder()
-        notifier = TelegramNotifier(token=token, chat_id=chat_id)
+        
+        notifiers = []
+        # Setup Telegram Notifier
+        notifiers.append(TelegramNotifier(token=token, chat_id=chat_id))
+        
+        # Setup Fritz Notifier if address is provided
+        if fritz_address:
+            try:
+                fritz_notifier = FritzNotifier(
+                    address=fritz_address,
+                    user=fritz_user,
+                    password=fritz_password,
+                    target_number=fritz_target,
+                    ring_duration=fritz_duration
+                )
+                notifiers.append(fritz_notifier)
+                logging.info("Fritz!Box notifier enabled.")
+            except Exception as e:
+                logging.warning(f"Could not initialize Fritz!Box notifier: {e}")
+
         detector = SnoreDetector(
             recorder=recorder,
             threshold=threshold,
-            notifier=notifier,
+            notifier=notifiers,
             cooldown_seconds=interval
         )
         await detector.start_loop_async()
