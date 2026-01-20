@@ -9,13 +9,13 @@
     - [ ] Update `snoring/cli.py` to load these new environment variables.
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Dependency & Configuration' (Protocol in workflow.md) a7da86c
 
-## Phase 2: XNotifier Implementation
+## Phase 2: XNotifier Implementation [checkpoint: 995b928]
 - [x] Task: Implement XNotifier Class 5a5ad76
     - [ ] Create `snoring/x_notifier.py`.
     - [ ] Implement `__init__` to initialize the `tweepy.Client`.
     - [ ] Implement `send_alert()` method using the `create_direct_message` API.
     - [ ] Write unit tests mocking `tweepy` to verify DM delivery and error handling.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: XNotifier Implementation' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: XNotifier Implementation' (Protocol in workflow.md) 995b928
 
 ## Phase 3: Integration & Orchestration
 - [ ] Task: Wire up X.com in CLI
