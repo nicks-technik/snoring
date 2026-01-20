@@ -2,11 +2,12 @@
 
 import logging
 import tweepy
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
 class XNotifier:
-    """Sends alerts via X.com (Twitter) Direct Messages."""
+    """Sends alerts via X.com (Twitter) Tweets."""
 
     def __init__(
         self,
@@ -23,7 +24,7 @@ class XNotifier:
             api_secret: X.com API Consumer Secret.
             access_token: X.com User Access Token.
             access_token_secret: X.com User Access Token Secret.
-            recipient_id: Numeric User ID to send DMs to.
+            recipient_id: Ignored in tweet mode, but kept for interface compatibility.
         """
         self.recipient_id = recipient_id
         self.client = tweepy.Client(
@@ -34,16 +35,18 @@ class XNotifier:
         )
 
     def send_alert(self, message: str):
-        """Sends a synchronous alert message via X.com DM.
+        """Sends a synchronous alert message via X.com Tweet.
 
         Args:
             message: The message text to send.
         """
         try:
-            self.client.create_direct_message(
-                participant_id=self.recipient_id,
-                text=message
-            )
-            logger.info(f"X.com alert sent to {self.recipient_id}: {message}")
+            # Add timestamp to ensure uniqueness
+            timestamp = datetime.now().strftime('%H:%M:%S')
+            tweet_text = f"[{timestamp}] {message}"
+            
+            self.client.create_tweet(text=tweet_text)
+            logger.info(f"X.com alert sent: {tweet_text}")
         except Exception as e:
             logger.error(f"Failed to send X.com alert: {e}")
+
