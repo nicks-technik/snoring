@@ -9,13 +9,13 @@
     - [x] Update integration tests to verify the order of notifiers in the `SnoreDetector` list.
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Detector Logic & Notification Order' (Protocol in workflow.md) ede9c9d
 
-## Phase 2: XNotifier Pivot to Tweet Mode
+## Phase 2: XNotifier Pivot to Tweet Mode [checkpoint: 4f1a895]
 - [x] Task: Implement Tweet-based alerting in XNotifier c2dd896
     - [x] Modify `snoring/x_notifier.py` to use `self.client.create_tweet(text=message)` instead of DM methods.
     - [x] Add a unique timestamp (e.g., using `datetime.now().strftime('%H:%M:%S')`) to each message string to prevent X.com duplicate tweet errors.
 - [x] Task: Update XNotifier tests c2dd896
     - [x] Modify `tests/test_x_notifier.py` to assert that `create_tweet` is called with the expected metrics and timestamp.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: XNotifier Pivot to Tweet Mode' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: XNotifier Pivot to Tweet Mode' (Protocol in workflow.md) 4f1a895
 
 ## Phase 3: Final Integration & Cleanup
 - [ ] Task: Final project-wide test run
