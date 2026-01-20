@@ -22,15 +22,15 @@
     - [x] Add logging to output current RMS values for debugging/calibration.
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Core Audio Capture & Analysis' (Protocol in workflow.md) 725940a
 
-## Phase 3: Alerting & Integration
+## Phase 3: Alerting & Integration [checkpoint: 65fe86d]
 - [x] Task: Implement Telegram Notifier 4d793a9
-    - [ ] Create a `TelegramNotifier` class using `python-telegram-bot`.
-    - [ ] Implement an asynchronous method `send_alert(message)`.
-    - [ ] Write an integration test (or manual script) to verify a test message can be sent.
+    - [x] Create a `TelegramNotifier` class using `python-telegram-bot`.
+    - [x] Implement an asynchronous method `send_alert(message)`.
+    - [x] Write an integration test (or manual script) to verify a test message can be sent.
 - [x] Task: Integrate Alerting with Detection 50e8d0d
-    - [ ] Update `SnoreDetector` to trigger `TelegramNotifier.send_alert` when the threshold is breached.
-    - [ ] Add a cooldown mechanism to prevent spamming messages (e.g., only one alert per minute).
+    - [x] Update `SnoreDetector` to trigger `TelegramNotifier.send_alert` when the threshold is breached.
+    - [x] Add a cooldown mechanism to prevent spamming messages (e.g., only one alert per minute).
 - [x] Task: Finalize CLI Entry Point d5b5922
-    - [ ] Create `main.py` (or `__main__.py`) to load env vars, instantiate classes, and start the loop.
-    - [ ] Ensure `KeyboardInterrupt` (Ctrl+C) gracefully shuts down the stream and bot.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Alerting & Integration' (Protocol in workflow.md)
+    - [x] Create `main.py` (or `__main__.py`) to load env vars, instantiate classes, and start the loop.
+    - [x] Ensure `KeyboardInterrupt` (Ctrl+C) gracefully shuts down the stream and bot.
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Alerting & Integration' (Protocol in workflow.md) ac541fe
