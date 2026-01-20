@@ -10,7 +10,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Dependency & Configuration' (Protocol in workflow.md) 3f9717f
 
 ## Phase 2: LineNotifier Implementation
-- [ ] Task: Implement LineNotifier Class
+- [x] Task: Implement LineNotifier Class d8d082e
     - [ ] Create `snoring/line_notifier.py`.
     - [ ] Implement `__init__` to initialize the LINE API client.
     - [ ] Implement `send_alert()` method using the `push_message` functionality.
