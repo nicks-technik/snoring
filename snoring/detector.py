@@ -104,7 +104,6 @@ class SnoreDetector:
                                     await result
                             except Exception as e:
                                 logger.error(f"Notifier {n.__class__.__name__} failed: {e}")
-                        self.last_alert_time = current_time
                     else:
                         logger.debug("Alert skipped due to cooldown.")
                 
