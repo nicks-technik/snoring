@@ -10,7 +10,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Dependency & Configuration' (Protocol in workflow.md) 2d199c1
 
 ## Phase 2: FritzNotifier Implementation
-- [ ] Task: Implement FritzNotifier Class
+- [x] Task: Implement FritzNotifier Class de0fe3d
     - [ ] Create `snoring/fritz_notifier.py`.
     - [ ] Implement `__init__` to establish connection using `FritzConnection`.
     - [ ] Implement `send_alert()` method which calls `X_AVM-DE_DialNumber`, waits `FRITZ_RING_DURATION`, and calls `X_AVM-DE_HangUp`.
