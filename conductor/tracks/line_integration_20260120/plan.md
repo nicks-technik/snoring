@@ -1,13 +1,13 @@
 # Implementation Plan - LINE Messaging API Integration
 
-## Phase 1: Dependency & Configuration
+## Phase 1: Dependency & Configuration [checkpoint: 3f9717f]
 - [x] Task: Add line-bot-sdk dependency 5d61d52
     - [ ] Run `uv add line-bot-sdk` to install the library.
     - [ ] Update `tech-stack.md` to include `line-bot-sdk`.
 - [x] Task: Update Configuration Logic 7b5c3b0
     - [ ] Update `.env.example` with `LINE_ENABLED`, `LINE_CHANNEL_ACCESS_TOKEN`, `LINE_CHANNEL_SECRET`, and `LINE_USER_ID`.
     - [ ] Update `snoring/cli.py` to load these new environment variables.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Dependency & Configuration' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Dependency & Configuration' (Protocol in workflow.md) 3f9717f
 
 ## Phase 2: LineNotifier Implementation
 - [ ] Task: Implement LineNotifier Class
