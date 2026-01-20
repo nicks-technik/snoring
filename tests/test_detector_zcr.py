@@ -47,3 +47,31 @@ def test_snore_detector_init_zcr_threshold():
     mock_recorder = mock.Mock()
     detector = SnoreDetector(recorder=mock_recorder, threshold=100.0, zcr_threshold=0.2)
     assert detector.zcr_threshold == 0.2
+
+@pytest.mark.asyncio
+async def test_snore_detector_alert_message_format():
+    # Setup
+    mock_recorder = mock.Mock()
+    mock_recorder.read_chunk.return_value = b'\x00' * 1024 # Dummy data
+    
+    mock_notifier = mock.AsyncMock()
+    
+    # Mock audio_utils functions
+    with mock.patch('snoring.detector.calculate_rms') as mock_rms, \
+         mock.patch('snoring.detector.calculate_zcr') as mock_zcr:
+        
+        mock_rms.return_value = 750.54321 # Should round to 750.54
+        mock_zcr.return_value = 0.0412345 # Should round to 0.0412
+        
+        detector = SnoreDetector(
+            recorder=mock_recorder,
+            threshold=500.0,
+            notifier=mock_notifier,
+            cooldown_seconds=0,
+            zcr_threshold=0.1
+        )
+        
+        await detector.step_async()
+        
+        expected_message = "Snoring detected! (RMS: 750.54, ZCR: 0.0412)"
+        mock_notifier.send_alert.assert_called_once_with(expected_message)
