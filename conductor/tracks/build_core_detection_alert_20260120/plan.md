@@ -30,7 +30,7 @@
 - [x] Task: Integrate Alerting with Detection 50e8d0d
     - [ ] Update `SnoreDetector` to trigger `TelegramNotifier.send_alert` when the threshold is breached.
     - [ ] Add a cooldown mechanism to prevent spamming messages (e.g., only one alert per minute).
-- [ ] Task: Finalize CLI Entry Point
+- [x] Task: Finalize CLI Entry Point d5b5922
     - [ ] Create `main.py` (or `__main__.py`) to load env vars, instantiate classes, and start the loop.
     - [ ] Ensure `KeyboardInterrupt` (Ctrl+C) gracefully shuts down the stream and bot.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Alerting & Integration' (Protocol in workflow.md)
