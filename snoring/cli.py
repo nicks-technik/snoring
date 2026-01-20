@@ -58,6 +58,13 @@ async def run_app():
     line_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")
     line_secret = os.getenv("LINE_CHANNEL_SECRET")
     line_user_id = os.getenv("LINE_USER_ID")
+
+    x_enabled = os.getenv("X_ENABLED", "False").lower() == "true"
+    x_api_key = os.getenv("X_API_KEY")
+    x_api_secret = os.getenv("X_API_SECRET")
+    x_access_token = os.getenv("X_ACCESS_TOKEN")
+    x_access_secret = os.getenv("X_ACCESS_SECRET")
+    x_recipient_id = os.getenv("X_RECIPIENT_ID")
     
     if not token or not chat_id:
         logging.error("Telegram token or Chat ID not found in environment.")
