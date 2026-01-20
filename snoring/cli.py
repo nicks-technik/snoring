@@ -37,6 +37,12 @@ async def run_app():
     except (ValueError, TypeError):
         interval = 60
 
+    zcr_threshold_str = os.getenv("ZCR_THRESHOLD", "0.1")
+    try:
+        zcr_threshold = float(zcr_threshold_str)
+    except (ValueError, TypeError):
+        zcr_threshold = 0.1
+
     fritz_enabled = os.getenv("FRITZ_ENABLED", "False").lower() == "true"
     fritz_address = os.getenv("FRITZ_ADDRESS")
     fritz_user = os.getenv("FRITZ_USER")
