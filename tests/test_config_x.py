@@ -40,6 +40,8 @@ async def test_cli_x_notifier_integration(mock_getenv, mock_detector, mock_x, mo
         recipient_id="rid"
     )
     
-    # Verify it was added to the notifiers list
+    # Verify it was added to the notifiers list in correct order
     notifiers = mock_detector.call_args[1]['notifier']
-    assert mock_x.return_value in notifiers
+    # Notifiers are: Telegram (index 0), X (index 1)
+    assert mock_x.return_value == notifiers[1]
+

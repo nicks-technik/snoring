@@ -79,6 +79,21 @@ async def run_app():
         # Setup Telegram Notifier
         notifiers.append(TelegramNotifier(token=token, chat_id=chat_id))
         
+        # Setup X.com Notifier if enabled
+        if x_enabled:
+            try:
+                x_notifier = XNotifier(
+                    api_key=x_api_key,
+                    api_secret=x_api_secret,
+                    access_token=x_access_token,
+                    access_token_secret=x_access_secret,
+                    recipient_id=x_recipient_id
+                )
+                notifiers.append(x_notifier)
+                logging.info("X.com notifier enabled.")
+            except Exception as e:
+                logging.warning(f"Could not initialize X.com notifier: {e}")
+
         # Setup Fritz Notifier if enabled
         if fritz_enabled and fritz_address:
             try:
@@ -106,21 +121,6 @@ async def run_app():
                 logging.info("LINE notifier enabled.")
             except Exception as e:
                 logging.warning(f"Could not initialize LINE notifier: {e}")
-
-        # Setup X.com Notifier if enabled
-        if x_enabled:
-            try:
-                x_notifier = XNotifier(
-                    api_key=x_api_key,
-                    api_secret=x_api_secret,
-                    access_token=x_access_token,
-                    access_token_secret=x_access_secret,
-                    recipient_id=x_recipient_id
-                )
-                notifiers.append(x_notifier)
-                logging.info("X.com notifier enabled.")
-            except Exception as e:
-                logging.warning(f"Could not initialize X.com notifier: {e}")
 
         detector = SnoreDetector(
             recorder=recorder,
