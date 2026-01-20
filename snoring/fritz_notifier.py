@@ -46,7 +46,7 @@ class FritzNotifier:
             logger.info(f"Triggering Fritz!Box call to {self.target_number}...")
             # Start dialing
             self.fc.call_action(
-                'X_VoIP:1',
+                'X_VoIP1',
                 'X_AVM-DE_DialNumber',
                 **{'NewX_AVM-DE_PhoneNumber': self.target_number}
             )
@@ -55,7 +55,7 @@ class FritzNotifier:
             await asyncio.sleep(self.ring_duration)
             
             # Hang up
-            self.fc.call_action('X_VoIP:1', 'X_AVM-DE_HangUp')
+            self.fc.call_action('X_VoIP1', 'X_AVM-DE_DialHangup')
             logger.info("Fritz!Box call ended.")
             
         except Exception as e:
