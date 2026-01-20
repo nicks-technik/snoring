@@ -1,6 +1,7 @@
 """Snore detector orchestration module."""
 
 import logging
+import time
 from typing import Callable, Optional
 from snoring.audio_utils import calculate_rms
 
@@ -13,7 +14,9 @@ class SnoreDetector:
         self,
         recorder,
         threshold: float,
-        on_detection: Optional[Callable[[], None]] = None
+        on_detection: Optional[Callable[[], None]] = None,
+        notifier = None,
+        cooldown_seconds: int = 60
     ):
         """Initializes the snore detector.
 
@@ -21,13 +24,20 @@ class SnoreDetector:
             recorder: An object with a read_chunk() method.
             threshold: The RMS threshold above which snoring is detected.
             on_detection: A callback function to execute when snoring is detected.
+            notifier: A TelegramNotifier instance.
+            cooldown_seconds: Minimum seconds between alerts.
         """
         self.recorder = recorder
         self.threshold = threshold
         self.on_detection = on_detection
+        self.notifier = notifier
+        self.cooldown_seconds = cooldown_seconds
+        self.last_alert_time = 0.0
 
     def step(self) -> bool:
         """Performs one step of monitoring: read, analyze, and trigger callback.
+
+        Note: This is a synchronous version. It will not call the async notifier.
 
         Returns:
             True if snoring was detected in this step, False otherwise.
@@ -43,14 +53,47 @@ class SnoreDetector:
             
         return False
 
-    def start_loop(self):
-        """Starts a continuous monitoring loop.
-        
-        This method is blocking and should be interrupted by KeyboardInterrupt.
+    async def step_async(self) -> bool:
+        """Asynchronous step that also handles Telegram alerts with cooldown.
+
+        Returns:
+            True if snoring was detected in this step, False otherwise.
         """
+        chunk = self.recorder.read_chunk()
+        rms = calculate_rms(chunk)
+        
+        if rms > self.threshold:
+            logger.info(f"[DETECT] Snoring detected! RMS: {rms:.2f}")
+            if self.on_detection:
+                self.on_detection()
+            
+            # Handle Telegram Alert with Cooldown
+            if self.notifier:
+                current_time = time.time()
+                if current_time - self.last_alert_time >= self.cooldown_seconds:
+                    await self.notifier.send_alert("Snoring detected!")
+                    self.last_alert_time = current_time
+                else:
+                    logger.debug("Alert skipped due to cooldown.")
+            
+            return True
+            
+        return False
+
+    def start_loop(self):
+        """Starts a continuous monitoring loop (synchronous)."""
         logger.info(f"Starting monitoring with threshold: {self.threshold}")
         try:
             while True:
                 self.step()
+        except KeyboardInterrupt:
+            logger.info("Monitoring stopped by user.")
+
+    async def start_loop_async(self):
+        """Starts a continuous monitoring loop (asynchronous)."""
+        logger.info(f"Starting async monitoring with threshold: {self.threshold}")
+        try:
+            while True:
+                await self.step_async()
         except KeyboardInterrupt:
             logger.info("Monitoring stopped by user.")
