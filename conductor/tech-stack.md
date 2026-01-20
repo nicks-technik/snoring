@@ -13,6 +13,7 @@
 - **fritzconnection:** Interfaces with AVM Fritz!Box for triggering internal calls via TR-064.
 - **line-bot-sdk:** Official SDK for the LINE Messaging API to send notifications.
 - **Librosa:** Used for advanced audio analysis (Zero-Crossing Rate) to reduce false positives.
+- **tweepy:** Interfaces with X.com (Twitter) API v2 for sending Direct Messages.
 
 ## Configuration & Secrets
 - **Environment Variables (.env):** Used to store sensitive configuration like the Telegram Bot Token and Chat ID.
