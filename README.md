@@ -63,7 +63,12 @@ This application monitors audio from your default input device to identify snori
 
 #### X.com (Twitter)
 To send Direct Messages, you need an **X Developer Account**.
-1.  **Set Permissions First:** In the [X Developer Portal](https://developer.x.com/), go to **App Settings > User authentication settings > Edit**. Set "App permissions" to **Read and write and Direct message** and save.
+1.  **Set Permissions First:** 
+    -   In the [X Developer Portal](https://developer.x.com/), go to **App Settings > User authentication settings > Edit**.
+    -   **Important:** You must enable **OAuth 1.0a** to use DMs with the current implementation.
+    -   **App Type:** Select "Native App" or "Web App".
+    -   **Mandatory Placeholders:** X requires a **Callback URL** and **Website URL** to save settings. Use `https://example.com` for both if you don't have one.
+    -   **Permissions:** Select **Read and write and Direct message** and click **Save**.
 2.  **Generate Credentials:** Go to the **Keys and Tokens** tab and use the table below to find the values for your `.env` file.
 
 | `.env` Variable | Label in X Portal | How to obtain |
