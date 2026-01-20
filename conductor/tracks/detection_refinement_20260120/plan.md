@@ -1,7 +1,7 @@
 # Implementation Plan - Improved Snoring Detection Algorithm
 
 ## Phase 1: Dependency & Configuration
-- [ ] Task: Add librosa dependency
+- [x] Task: Add librosa dependency 2fee586
     - [ ] Run `uv add librosa` to install the library.
     - [ ] Update `tech-stack.md` to include `librosa`.
 - [ ] Task: Update Configuration Logic
