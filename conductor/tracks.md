@@ -15,5 +15,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [ ] **Track: Integrate X.com (Twitter) Direct Messages for alerts**
+- [x] **Track: Integrate X.com (Twitter) Direct Messages for alerts**
 *Link: [./tracks/x_integration_20260120/](./tracks/x_integration_20260120/)*
