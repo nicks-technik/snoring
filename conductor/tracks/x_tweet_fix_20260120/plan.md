@@ -1,13 +1,13 @@
 # Implementation Plan - X.com Pivot to Tweets and Detector Bug Fix
 
-## Phase 1: Detector Logic & Notification Order
+## Phase 1: Detector Logic & Notification Order [checkpoint: ede9c9d]
 - [x] Task: Ensure SnoreDetector handles sync/async notifiers
     - [x] Verify `snoring/detector.py` uses `asyncio.iscoroutine` to safely await notifiers.
     - [x] Update `tests/test_detector.py` with a specific test case for a mix of sync and async notifiers.
 - [x] Task: Verify Notifier Priority
     - [x] Ensure `snoring/cli.py` instantiates `XNotifier` before `FritzNotifier`.
     - [x] Update integration tests to verify the order of notifiers in the `SnoreDetector` list.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Detector Logic & Notification Order' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Detector Logic & Notification Order' (Protocol in workflow.md) ede9c9d
 
 ## Phase 2: XNotifier Pivot to Tweet Mode
 - [ ] Task: Implement Tweet-based alerting in XNotifier
