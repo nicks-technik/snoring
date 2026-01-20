@@ -9,6 +9,7 @@ from snoring.detector import SnoreDetector
 from snoring.notifier import TelegramNotifier
 from snoring.fritz_notifier import FritzNotifier
 from snoring.line_notifier import LineNotifier
+from snoring.x_notifier import XNotifier
 
 def setup_logging():
     """Configures logging for the application."""
@@ -105,6 +106,21 @@ async def run_app():
                 logging.info("LINE notifier enabled.")
             except Exception as e:
                 logging.warning(f"Could not initialize LINE notifier: {e}")
+
+        # Setup X.com Notifier if enabled
+        if x_enabled:
+            try:
+                x_notifier = XNotifier(
+                    api_key=x_api_key,
+                    api_secret=x_api_secret,
+                    access_token=x_access_token,
+                    access_token_secret=x_access_secret,
+                    recipient_id=x_recipient_id
+                )
+                notifiers.append(x_notifier)
+                logging.info("X.com notifier enabled.")
+            except Exception as e:
+                logging.warning(f"Could not initialize X.com notifier: {e}")
 
         detector = SnoreDetector(
             recorder=recorder,
