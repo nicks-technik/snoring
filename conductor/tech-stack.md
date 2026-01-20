@@ -10,6 +10,7 @@
 - **PyAudio:** Provides cross-platform audio recording capabilities.
 - **NumPy:** Used for efficient, real-time numerical analysis of audio buffers.
 - **python-telegram-bot:** Handles integration with the Telegram Bot API for sending intervention alerts.
+- **fritzconnection:** Interfaces with AVM Fritz!Box for triggering internal calls via TR-064.
 
 ## Configuration & Secrets
 - **Environment Variables (.env):** Used to store sensitive configuration like the Telegram Bot Token and Chat ID.
