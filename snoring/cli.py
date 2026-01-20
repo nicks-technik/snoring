@@ -28,6 +28,12 @@ async def run_app():
         threshold = float(threshold_str)
     except (ValueError, TypeError):
         threshold = 500.0
+        
+    interval_str = os.getenv("INTERVAL_SECONDS", "60")
+    try:
+        interval = int(interval_str)
+    except (ValueError, TypeError):
+        interval = 60
     
     if not token or not chat_id:
         logging.error("Telegram token or Chat ID not found in environment.")
@@ -40,7 +46,8 @@ async def run_app():
         detector = SnoreDetector(
             recorder=recorder,
             threshold=threshold,
-            notifier=notifier
+            notifier=notifier,
+            cooldown_seconds=interval
         )
         await detector.start_loop_async()
     except Exception as e:
