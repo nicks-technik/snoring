@@ -8,19 +8,19 @@
     - [x] Create a `.env.example` file for configuration templates (Telegram Token, Chat ID, Sensitivity).
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Environment & Project Structure' (Protocol in workflow.md) a24fef1
 
-## Phase 2: Core Audio Capture & Analysis
+## Phase 2: Core Audio Capture & Analysis [checkpoint: 7529f6b]
 - [x] Task: Implement Audio Capture Class ec40798
-    - [ ] Create a `AudioRecorder` class that wraps `PyAudio` stream initialization.
-    - [ ] Implement a method to read chunks of audio data.
-    - [ ] Write a unit test to verify the stream opens and closes correctly (mocking PyAudio).
+    - [x] Create a `AudioRecorder` class that wraps `PyAudio` stream initialization.
+    - [x] Implement a method to read chunks of audio data.
+    - [x] Write a unit test to verify the stream opens and closes correctly (mocking PyAudio).
 - [x] Task: Implement RMS Analysis ebe6800
-    - [ ] Create a utility function `calculate_rms(audio_chunk)` using `numpy`.
-    - [ ] Write unit tests with known byte arrays to verify RMS calculation accuracy.
+    - [x] Create a utility function `calculate_rms(audio_chunk)` using `numpy`.
+    - [x] Write unit tests with known byte arrays to verify RMS calculation accuracy.
 - [x] Task: Create Main Monitoring Loop 55293b5
-    - [ ] Create a `SnoreDetector` class that orchestrates the recorder and analysis.
-    - [ ] Implement the logic: Read Chunk -> Calculate RMS -> Compare with Threshold.
-    - [ ] Add logging to output current RMS values for debugging/calibration.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Core Audio Capture & Analysis' (Protocol in workflow.md)
+    - [x] Create a `SnoreDetector` class that orchestrates the recorder and analysis.
+    - [x] Implement the logic: Read Chunk -> Calculate RMS -> Compare with Threshold.
+    - [x] Add logging to output current RMS values for debugging/calibration.
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Core Audio Capture & Analysis' (Protocol in workflow.md) 725940a
 
 ## Phase 3: Alerting & Integration
 - [ ] Task: Implement Telegram Notifier
