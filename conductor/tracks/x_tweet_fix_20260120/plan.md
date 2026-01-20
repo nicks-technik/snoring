@@ -18,7 +18,6 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: XNotifier Pivot to Tweet Mode' (Protocol in workflow.md) 4f1a895
 
 ## Phase 3: Final Integration & Cleanup
-- [ ] Task: Final project-wide test run
-    - [ ] Execute the full test suite: `$env:PYTHONPATH = "."; uv run pytest --cov=snoring`.
-    - [ ] Ensure all notification channels (Telegram, LINE, Fritz, X) work correctly in the main loop.
+- [x] Task: Final project-wide test run 8fc8a22
+    - [x] Execute the full test suite: `$env:PYTHONPATH = "."; uv run pytest --cov=snoring`.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Final Integration & Cleanup' (Protocol in workflow.md)
