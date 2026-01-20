@@ -1,13 +1,13 @@
 # Implementation Plan - Fritz!Box Internal Call Integration
 
-## Phase 1: Dependency & Configuration
+## Phase 1: Dependency & Configuration [checkpoint: 2d199c1]
 - [x] Task: Add fritzconnection dependency 6dae759
     - [ ] Run `uv add fritzconnection` to install the library.
     - [ ] Update `tech-stack.md` to include `fritzconnection`.
 - [x] Task: Update Configuration Logic c39be8a
     - [ ] Update `.env.example` with `FRITZ_ADDRESS`, `FRITZ_USER`, `FRITZ_PASSWORD`, `FRITZ_TARGET_NUMBER`, and `FRITZ_RING_DURATION`.
     - [ ] Update `snoring/cli.py` to load these new environment variables.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Dependency & Configuration' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Dependency & Configuration' (Protocol in workflow.md) 2d199c1
 
 ## Phase 2: FritzNotifier Implementation
 - [ ] Task: Implement FritzNotifier Class
