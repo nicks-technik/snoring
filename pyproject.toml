@@ -12,6 +12,7 @@ dependencies = [
     "pyaudio>=0.2.14",
     "python-dotenv>=1.2.1",
     "python-telegram-bot>=22.5",
+    "tweepy>=4.16.0",
 ]
 
 [tool.uv]
