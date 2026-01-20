@@ -16,11 +16,11 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Audio Utilities Enhancement' (Protocol in workflow.md) d5b4715
 
 ## Phase 3: Detector Refinement
-- [ ] Task: Update SnoreDetector Logic
+- [x] Task: Update SnoreDetector Logic 941aaa3
     - [ ] Refactor `SnoreDetector.step_async` in `snoring/detector.py` to incorporate the ZCR check.
     - [ ] Update `__init__` to accept `zcr_threshold`.
     - [ ] Ensure logging includes both RMS and ZCR values during detection.
     - [ ] Write unit tests in `tests/test_detector.py` mocking `calculate_zcr` to verify the multi-stage detection logic.
-- [ ] Task: Wire up ZCR in CLI
+- [~] Task: Wire up ZCR in CLI
     - [ ] Update `snoring/cli.py` to pass the loaded `zcr_threshold` to the `SnoreDetector` instance.
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Detector Refinement' (Protocol in workflow.md)
