@@ -34,6 +34,7 @@ A Python CLI application to detect snoring in real-time and send alerts via Tele
    TELEGRAM_BOT_TOKEN=your_bot_token
    TELEGRAM_CHAT_ID=your_chat_id
    SENSITIVITY_THRESHOLD=500.0
+   INTERVAL_SECONDS=60
    ```
 
 ## Usage
