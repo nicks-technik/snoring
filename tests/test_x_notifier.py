@@ -1,6 +1,7 @@
 import pytest
 import unittest.mock as mock
 from snoring.x_notifier import XNotifier
+import re
 
 def test_x_notifier_init():
     with mock.patch('tweepy.Client') as mock_client:
@@ -32,15 +33,16 @@ def test_x_notifier_send_alert_success():
         
         notifier.send_alert("Snore detected")
         
-        mock_instance.create_direct_message.assert_called_once_with(
-            participant_id='rid',
-            text="Snore detected"
-        )
+        mock_instance.create_tweet.assert_called_once()
+        args, kwargs = mock_instance.create_tweet.call_args
+        tweet_text = kwargs.get('text')
+        assert "Snore detected" in tweet_text
+        assert re.search(r'\d{2}:\d{2}:\d{2}', tweet_text)
 
 def test_x_notifier_send_alert_failure():
     with mock.patch('tweepy.Client') as mock_client:
         mock_instance = mock_client.return_value
-        mock_instance.create_direct_message.side_effect = Exception("API Error")
+        mock_instance.create_tweet.side_effect = Exception("API Error")
         
         notifier = XNotifier(
             api_key='ak',
