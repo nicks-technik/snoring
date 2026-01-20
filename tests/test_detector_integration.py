@@ -24,7 +24,7 @@ async def test_snore_detector_cooldown():
     
     # First detection
     await detector.step_async()
-    mock_notifier.send_alert.assert_called_once_with("Snoring detected!")
+    mock_notifier.send_alert.assert_called_once_with("Snoring detected! (RMS: 2000.00, ZCR: 0.0000)")
     
     # Second detection immediately after
     mock_notifier.send_alert.reset_mock()
@@ -34,7 +34,7 @@ async def test_snore_detector_cooldown():
     # Fast forward time
     with mock.patch('snoring.detector.time.time', return_value=time.time() + 61):
         await detector.step_async()
-        mock_notifier.send_alert.assert_called_once_with("Snoring detected!")
+        mock_notifier.send_alert.assert_called_once_with("Snoring detected! (RMS: 2000.00, ZCR: 0.0000)")
 
 @pytest.mark.asyncio
 async def test_snore_detector_start_loop_async_interrupted():
