@@ -9,11 +9,11 @@
     - [ ] Update `snoring/cli.py` to load and parse the `ZCR_THRESHOLD` environment variable.
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Dependency & Configuration' (Protocol in workflow.md) aff0754
 
-## Phase 2: Audio Utilities Enhancement
+## Phase 2: Audio Utilities Enhancement [checkpoint: d5b4715]
 - [x] Task: Implement ZCR Calculation 680c4a5
     - [ ] Update `snoring/audio_utils.py` to include a `calculate_zcr` function using `librosa`.
     - [ ] Write unit tests in `tests/test_audio_utils.py` to verify ZCR calculation for different simulated waveforms (e.g., low-frequency sine vs. high-frequency noise).
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Audio Utilities Enhancement' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Audio Utilities Enhancement' (Protocol in workflow.md) d5b4715
 
 ## Phase 3: Detector Refinement
 - [ ] Task: Update SnoreDetector Logic
