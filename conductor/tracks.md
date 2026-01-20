@@ -4,5 +4,3 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [x] **Track: Integrate Fritz!Box internal call to trigger smartwatch vibration**
-  *Link: [./tracks/fritz_call_20260120/](./tracks/fritz_call_20260120/)*
