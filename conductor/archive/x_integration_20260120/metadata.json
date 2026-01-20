@@ -1,0 +1,8 @@
+{
+  "track_id": "x_integration_20260120",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-01-20T08:43:00Z",
+  "updated_at": "2026-01-20T08:43:00Z",
+  "description": "Integrate X.com (Twitter) Direct Messages as a new intervention method using tweepy."
+}
