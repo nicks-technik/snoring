@@ -94,9 +94,10 @@ class SnoreDetector:
                 if self.notifier:
                     current_time = time.time()
                     if current_time - self.last_alert_time >= self.cooldown_seconds:
+                        message = f"Snoring detected! (RMS: {rms:.2f}, ZCR: {zcr:.4f})"
                         for n in self.notifier:
                             try:
-                                await n.send_alert("Snoring detected!")
+                                await n.send_alert(message)
                             except Exception as e:
                                 logger.error(f"Notifier {n.__class__.__name__} failed: {e}")
                         self.last_alert_time = current_time
