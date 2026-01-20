@@ -43,31 +43,28 @@ This application monitors audio from your default input device to identify snori
    ```bash
    cp .env.example .env
    ```
-2. Edit `.env` and configure your settings:
-   ```ini
-   # Core Detection
-   SENSITIVITY_THRESHOLD=500.0
-   ZCR_THRESHOLD=0.1
-   INTERVAL_SECONDS=60
+2. Edit `.env` and configure your settings. See the [Configuration Guide](#configuration-guide) for details on where to find these values.
 
-   # Telegram
-   TELEGRAM_BOT_TOKEN=your_bot_token
-   TELEGRAM_CHAT_ID=your_chat_id
+### Configuration Guide
 
-   # Fritz!Box
-   FRITZ_ENABLED=False
-   FRITZ_ADDRESS=192.168.178.1
-   FRITZ_USER=your_username
-   FRITZ_PASSWORD=your_password
-   FRITZ_TARGET_NUMBER=**610
-   FRITZ_RING_DURATION=20
+#### Telegram
+- **`TELEGRAM_BOT_TOKEN`**: Create a bot via [@BotFather](https://t.me/botfather) on Telegram. It will provide a token like `123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11`.
+- **`TELEGRAM_CHAT_ID`**: Send a message to your new bot, then visit `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates` to find your `id` in the `chat` object.
 
-   # LINE
-   LINE_ENABLED=False
-   LINE_CHANNEL_ACCESS_TOKEN=your_token
-   LINE_CHANNEL_SECRET=your_secret
-   LINE_USER_ID=your_user_id
-   ```
+#### Fritz!Box
+- **`FRITZ_ADDRESS`**: Usually `192.168.178.1` or `fritz.box`.
+- **`FRITZ_USER`**: A user created in **System > Fritz!Box Users**. Ensure "Telephony" rights are enabled.
+- **`FRITZ_TARGET_NUMBER`**: The internal number of the device to ring (e.g., `**610`). Found in **Telephony > Telephony Devices**.
+- **Note**: Ensure **Telephony > Calls > Dialing Help (Wählhilfe)** is enabled in the Fritz!Box UI.
+
+#### LINE
+- **`LINE_CHANNEL_ACCESS_TOKEN`** & **`LINE_CHANNEL_SECRET`**: Create a Messaging API channel in the [LINE Developers Console](https://developers.line.biz/console/). Tokens are in the "Messaging API" and "Basic settings" tabs.
+- **`LINE_USER_ID`**: Found at the bottom of the "Messaging API" tab in the LINE Developers Console (Your user ID).
+
+#### X.com (Twitter)
+- **`X_API_KEY`** & **`X_API_SECRET`**: Create an app in the [X Developer Portal](https://developer.twitter.com/en/portal/dashboard). Found under "Keys and Tokens" as Consumer Keys.
+- **`X_ACCESS_TOKEN`** & **`X_ACCESS_SECRET`**: Generated in the same portal under "Keys and Tokens" > "Authentication Tokens". Ensure the app has "Read and Write" permissions.
+- **`X_RECIPIENT_ID`**: Your numeric X User ID. You can find this using tools like [CommentPicker's Twitter ID tool](https://commentpicker.com/twitter-id.php) or via the API itself.
 
 ## Usage
 Run the application using `uv`:
