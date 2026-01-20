@@ -103,7 +103,8 @@ async def run_app():
             recorder=recorder,
             threshold=threshold,
             notifier=notifiers,
-            cooldown_seconds=interval
+            cooldown_seconds=interval,
+            zcr_threshold=zcr_threshold
         )
         await detector.start_loop_async()
     except Exception as e:
