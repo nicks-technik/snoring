@@ -23,7 +23,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Core Audio Capture & Analysis' (Protocol in workflow.md) 725940a
 
 ## Phase 3: Alerting & Integration
-- [ ] Task: Implement Telegram Notifier
+- [x] Task: Implement Telegram Notifier 4d793a9
     - [ ] Create a `TelegramNotifier` class using `python-telegram-bot`.
     - [ ] Implement an asynchronous method `send_alert(message)`.
     - [ ] Write an integration test (or manual script) to verify a test message can be sent.
