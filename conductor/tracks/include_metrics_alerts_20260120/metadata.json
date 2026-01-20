@@ -1,0 +1,8 @@
+{
+  "track_id": "include_metrics_alerts_20260120",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-01-20T07:16:00Z",
+  "updated_at": "2026-01-20T07:16:00Z",
+  "description": "Include RMS and ZCR values in detection alert messages."
+}
