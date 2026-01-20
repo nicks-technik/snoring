@@ -15,6 +15,7 @@ The application's fundamental goal is to detect snoring events in real-time with
 1.  **Real-Time Audio Analysis:** Continuous monitoring and pattern recognition to identify snoring sounds as they happen.
 2.  **Configurable Sensitivity:** Adjustable settings to define snoring thresholds, allowing users to minimize false positives based on their environment.
 3.  **Telegram Integration:** An initial alerting mechanism that sends a Telegram message upon detecting a snoring event, serving as a simple, effective wake-up trigger.
+4.  **Fritz!Box Intervention:** An advanced alerting mechanism that triggers an internal phone call via a local Fritz!Box, designed to vibrate a connected smartwatch for a silent wake-up nudge.
 
 ## Data & Privacy Strategy
 The system prioritizes detection accuracy, reliability, and efficiency above all else. While logging capabilities are secondary, the core focus is on robust, low-latency processing of audio data to ensure timely interventions.
