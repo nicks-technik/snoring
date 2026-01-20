@@ -66,3 +66,25 @@ async def test_snore_detector_multiple_notifiers():
     notifier1.send_alert.assert_called_once()
     notifier2.send_alert.assert_called_once()
 
+@pytest.mark.asyncio
+async def test_snore_detector_sync_and_async_notifiers():
+    mock_recorder = mock.Mock()
+    chunk = np.array([500] * 1024, dtype=np.int16).tobytes()
+    mock_recorder.read_chunk.return_value = chunk
+    
+    async_notifier = mock.AsyncMock()
+    sync_notifier = mock.Mock() # synchronous
+    
+    detector = SnoreDetector(
+        recorder=mock_recorder, 
+        threshold=100.0, 
+        notifier=[async_notifier, sync_notifier],
+        cooldown_seconds=0
+    )
+    
+    await detector.step_async()
+    
+    async_notifier.send_alert.assert_called_once()
+    sync_notifier.send_alert.assert_called_once()
+
+

@@ -2,6 +2,7 @@
 
 import logging
 import time
+import asyncio
 from typing import Callable, Optional
 from snoring.audio_utils import calculate_rms, calculate_zcr
 
@@ -98,9 +99,12 @@ class SnoreDetector:
                         message = f"Snoring detected! (RMS: {rms:.2f}, ZCR: {zcr:.4f})"
                         for n in self.notifier:
                             try:
-                                await n.send_alert(message)
+                                result = n.send_alert(message)
+                                if asyncio.iscoroutine(result):
+                                    await result
                             except Exception as e:
                                 logger.error(f"Notifier {n.__class__.__name__} failed: {e}")
+                        self.last_alert_time = current_time
                     else:
                         logger.debug("Alert skipped due to cooldown.")
                 
