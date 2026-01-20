@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2026-01-20
+
+### Added
+- **Fritz!Box Integration:** Support for triggering internal calls on a local Fritz!Box to vibrate connected devices (e.g., smartwatches).
+- **Dual Alerting:** SnoreDetector now supports multiple simultaneous notifiers (Telegram + Fritz!Box).
+- **Configuration:** New environment variables `FRITZ_ADDRESS`, `FRITZ_USER`, `FRITZ_PASSWORD`, `FRITZ_TARGET_NUMBER`, and `FRITZ_RING_DURATION`.
+
 ## [0.1.0] - 2026-01-20
 
 ### Added
