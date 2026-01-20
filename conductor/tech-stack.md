@@ -20,4 +20,5 @@
 
 ## Audio Processing Strategy
 - **Buffer-Based Analysis:** Real-time processing of incoming audio streams using NumPy for calculations like RMS (Root Mean Square) to detect intensity peaks.
-- **Threshold-Based Detection:** Initial MVP logic will use configurable intensity and duration thresholds to identify snoring events.
+- **Multi-Stage Detection:** Employs both RMS (intensity) and Zero-Crossing Rate (frequency) analysis to accurately identify snoring while filtering out high-frequency false positives like speech and coughing.
+
