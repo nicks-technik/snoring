@@ -1,7 +1,7 @@
 # Implementation Plan - X.com (Twitter) DM Integration
 
 ## Phase 1: Dependency & Configuration
-- [ ] Task: Add tweepy dependency
+- [x] Task: Add tweepy dependency b7b93b4
     - [ ] Run `uv add tweepy` to install the library.
     - [ ] Update `tech-stack.md` to include `tweepy`.
 - [ ] Task: Update Configuration Logic
