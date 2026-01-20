@@ -8,6 +8,7 @@ from snoring.audio_recorder import AudioRecorder
 from snoring.detector import SnoreDetector
 from snoring.notifier import TelegramNotifier
 from snoring.fritz_notifier import FritzNotifier
+from snoring.line_notifier import LineNotifier
 
 def setup_logging():
     """Configures logging for the application."""
@@ -77,6 +78,19 @@ async def run_app():
                 logging.info("Fritz!Box notifier enabled.")
             except Exception as e:
                 logging.warning(f"Could not initialize Fritz!Box notifier: {e}")
+
+        # Setup LINE Notifier if enabled
+        if line_enabled:
+            try:
+                line_notifier = LineNotifier(
+                    access_token=line_token,
+                    channel_secret=line_secret,
+                    user_id=line_user_id
+                )
+                notifiers.append(line_notifier)
+                logging.info("LINE notifier enabled.")
+            except Exception as e:
+                logging.warning(f"Could not initialize LINE notifier: {e}")
 
         detector = SnoreDetector(
             recorder=recorder,
