@@ -13,7 +13,7 @@
     - [ ] Create a `AudioRecorder` class that wraps `PyAudio` stream initialization.
     - [ ] Implement a method to read chunks of audio data.
     - [ ] Write a unit test to verify the stream opens and closes correctly (mocking PyAudio).
-- [ ] Task: Implement RMS Analysis
+- [x] Task: Implement RMS Analysis ebe6800
     - [ ] Create a utility function `calculate_rms(audio_chunk)` using `numpy`.
     - [ ] Write unit tests with known byte arrays to verify RMS calculation accuracy.
 - [ ] Task: Create Main Monitoring Loop
