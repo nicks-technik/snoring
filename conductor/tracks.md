@@ -14,7 +14,3 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 
 
----
-
-- [x] **Track: Refine X.com Integration and Fix Detector Bug**
-*Link: [./tracks/x_tweet_fix_20260120/](./tracks/x_tweet_fix_20260120/)*
