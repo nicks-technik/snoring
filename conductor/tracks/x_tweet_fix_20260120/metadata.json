@@ -1,8 +1,0 @@
-{
-  "track_id": "x_tweet_fix_20260120",
-  "type": "feature",
-  "status": "new",
-  "created_at": "2026-01-20T21:03:00Z",
-  "updated_at": "2026-01-20T21:03:00Z",
-  "description": "Switch X.com integration to public tweets (for private accounts) to bypass free tier DM limitations, fix the detector await bug, and prioritize X alerts."
-}
