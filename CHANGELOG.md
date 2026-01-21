@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.6] - 2026-01-21
+
+### Changed
+- **X.com Pivot:** Switched from Direct Messages to public Tweets (optimized for protected accounts) to support the X.com API Free Tier.
+- **Priority Alerts:** Reordered notification sequence to trigger X.com alerts before other methods.
+
+### Fixed
+- **Detector Reliability:** Fixed a `TypeError` when triggering synchronous notifiers within the async monitoring loop.
+
 ## [0.1.5] - 2026-01-20
 
 ### Added
