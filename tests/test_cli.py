@@ -21,7 +21,9 @@ async def test_cli_run_app_success(mock_detector_class, mock_fritz_class, mock_t
         'FRITZ_USER': 'u',
         'FRITZ_PASSWORD': 'p',
         'FRITZ_TARGET_NUMBER': 't',
-        'FRITZ_RING_DURATION': '5'
+        'FRITZ_RING_DURATION': '5',
+        'X_ENABLED': 'False',
+        'LINE_ENABLED': 'False'
     }):
         # Reset mocks
         mock_detector_class.reset_mock()

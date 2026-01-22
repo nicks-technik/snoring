@@ -1,8 +1,0 @@
-{
-  "id": "improve_snore_detection_20260122",
-  "name": "Improve Snore Detection Algorithm",
-  "description": "Reduce false positives in snoring detection by implementing spectral centroid analysis and consecutive frame verification.",
-  "status": "in_progress",
-  "created_at": "2026-01-22",
-  "updated_at": "2026-01-22"
-}

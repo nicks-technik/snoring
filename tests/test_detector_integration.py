@@ -7,6 +7,7 @@ from snoring.detector import SnoreDetector
 @pytest.mark.asyncio
 async def test_snore_detector_cooldown():
     mock_recorder = mock.Mock()
+    mock_recorder.sample_rate = 44100
     # Constant value 2000 > threshold 1000
     chunk = np.array([2000] * 1024, dtype=np.int16).tobytes()
     mock_recorder.read_chunk.return_value = chunk
@@ -14,27 +15,29 @@ async def test_snore_detector_cooldown():
     mock_notifier = mock.Mock()
     mock_notifier.send_alert = mock.AsyncMock()
     
-    # Cooldown 60 seconds
+    # Cooldown 60 seconds, min_consecutive_chunks=1
     detector = SnoreDetector(
         recorder=mock_recorder, 
         threshold=1000.0, 
         notifier=mock_notifier,
-        cooldown_seconds=60
+        cooldown_seconds=60,
+        min_consecutive_chunks=1
     )
     
-    # First detection
-    await detector.step_async()
-    mock_notifier.send_alert.assert_called_once_with("Snoring detected! (RMS: 2000.00, ZCR: 0.0000)")
-    
-    # Second detection immediately after
-    mock_notifier.send_alert.reset_mock()
-    await detector.step_async()
-    mock_notifier.send_alert.assert_not_called()
-    
-    # Fast forward time
-    with mock.patch('snoring.detector.time.time', return_value=time.time() + 61):
+    with mock.patch('snoring.detector.calculate_spectral_centroid', return_value=0.0):
+        # First detection
         await detector.step_async()
-        mock_notifier.send_alert.assert_called_once_with("Snoring detected! (RMS: 2000.00, ZCR: 0.0000)")
+        mock_notifier.send_alert.assert_called_once_with("Snoring detected! (RMS: 2000.00, ZCR: 0.0000, Centroid: 0Hz)")
+        
+        # Second detection immediately after
+        mock_notifier.send_alert.reset_mock()
+        await detector.step_async()
+        mock_notifier.send_alert.assert_not_called()
+        
+        # Fast forward time
+        with mock.patch('snoring.detector.time.time', return_value=time.time() + 61):
+            await detector.step_async()
+            mock_notifier.send_alert.assert_called_once_with("Snoring detected! (RMS: 2000.00, ZCR: 0.0000, Centroid: 0Hz)")
 
 @pytest.mark.asyncio
 async def test_snore_detector_start_loop_async_interrupted():
@@ -48,6 +51,7 @@ async def test_snore_detector_start_loop_async_interrupted():
 @pytest.mark.asyncio
 async def test_snore_detector_cooldown_logging():
     mock_recorder = mock.Mock()
+    mock_recorder.sample_rate = 44100
     chunk = np.array([2000] * 1024, dtype=np.int16).tobytes()
     mock_recorder.read_chunk.return_value = chunk
     
@@ -58,11 +62,13 @@ async def test_snore_detector_cooldown_logging():
         recorder=mock_recorder, 
         threshold=1000.0, 
         notifier=mock_notifier,
-        cooldown_seconds=60
+        cooldown_seconds=60,
+        min_consecutive_chunks=1
     )
     
-    await detector.step_async() # First alert
-    
-    with mock.patch('snoring.detector.logger') as mock_logger:
-        await detector.step_async() # Second alert skipped
-        mock_logger.debug.assert_called_with("Alert skipped due to cooldown.")
+    with mock.patch('snoring.detector.calculate_spectral_centroid', return_value=0.0):
+        await detector.step_async() # First alert
+        
+        with mock.patch('snoring.detector.logger') as mock_logger:
+            await detector.step_async() # Second alert skipped
+            mock_logger.debug.assert_called_with("Alert skipped due to cooldown.")
