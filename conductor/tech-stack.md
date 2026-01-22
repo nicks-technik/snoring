@@ -21,5 +21,5 @@
 
 ## Audio Processing Strategy
 - **Buffer-Based Analysis:** Real-time processing of incoming audio streams using NumPy for calculations like RMS (Root Mean Square) to detect intensity peaks.
-- **Multi-Stage Detection:** Employs both RMS (intensity) and Zero-Crossing Rate (frequency) analysis to accurately identify snoring while filtering out high-frequency false positives like speech and coughing.
+- **Multi-Stage Detection:** Employs RMS (intensity), Zero-Crossing Rate (frequency), and Spectral Centroid analysis to accurately identify snoring. It also verifies consecutive frames to ensure sustained sound, filtering out transient noises and speech.
 
