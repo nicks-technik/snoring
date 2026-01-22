@@ -16,21 +16,31 @@ def test_snore_detector_step_no_detection():
     callback = mock.Mock()
     detector = SnoreDetector(recorder=mock_recorder, threshold=1000.0, on_detection=callback)
     
-    detected = detector.step()
+    with mock.patch('snoring.detector.calculate_spectral_centroid', return_value=0.0):
+        detected = detector.step()
     
     assert not detected
     callback.assert_not_called()
 
 def test_snore_detector_step_detection():
     mock_recorder = mock.Mock()
+    mock_recorder.sample_rate = 44100
     # Constant value 2000 > threshold 1000
     chunk = np.array([2000] * 1024, dtype=np.int16).tobytes()
     mock_recorder.read_chunk.return_value = chunk
     
     callback = mock.Mock()
-    detector = SnoreDetector(recorder=mock_recorder, threshold=1000.0, on_detection=callback)
+    # Set min_consecutive_chunks=1 for immediate detection
+    detector = SnoreDetector(
+        recorder=mock_recorder, 
+        threshold=1000.0, 
+        on_detection=callback,
+        min_consecutive_chunks=1
+    )
     
-    detected = detector.step()
+    # Mock centroid to be low (snore-like)
+    with mock.patch('snoring.detector.calculate_spectral_centroid', return_value=500.0):
+        detected = detector.step()
     
     assert detected
     callback.assert_called_once()
@@ -47,6 +57,7 @@ def test_snore_detector_start_loop_interrupted():
 @pytest.mark.asyncio
 async def test_snore_detector_multiple_notifiers():
     mock_recorder = mock.Mock()
+    mock_recorder.sample_rate = 44100
     # RMS will be > 100
     chunk = np.array([500] * 1024, dtype=np.int16).tobytes()
     mock_recorder.read_chunk.return_value = chunk
@@ -58,10 +69,12 @@ async def test_snore_detector_multiple_notifiers():
         recorder=mock_recorder, 
         threshold=100.0, 
         notifier=[notifier1, notifier2],
-        cooldown_seconds=0
+        cooldown_seconds=0,
+        min_consecutive_chunks=1
     )
     
-    await detector.step_async()
+    with mock.patch('snoring.detector.calculate_spectral_centroid', return_value=500.0):
+        await detector.step_async()
     
     notifier1.send_alert.assert_called_once()
     notifier2.send_alert.assert_called_once()
@@ -69,6 +82,7 @@ async def test_snore_detector_multiple_notifiers():
 @pytest.mark.asyncio
 async def test_snore_detector_sync_and_async_notifiers():
     mock_recorder = mock.Mock()
+    mock_recorder.sample_rate = 44100
     chunk = np.array([500] * 1024, dtype=np.int16).tobytes()
     mock_recorder.read_chunk.return_value = chunk
     
@@ -79,12 +93,12 @@ async def test_snore_detector_sync_and_async_notifiers():
         recorder=mock_recorder, 
         threshold=100.0, 
         notifier=[async_notifier, sync_notifier],
-        cooldown_seconds=0
+        cooldown_seconds=0,
+        min_consecutive_chunks=1
     )
     
-    await detector.step_async()
+    with mock.patch('snoring.detector.calculate_spectral_centroid', return_value=500.0):
+        await detector.step_async()
     
     async_notifier.send_alert.assert_called_once()
     sync_notifier.send_alert.assert_called_once()
-
-
