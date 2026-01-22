@@ -9,3 +9,6 @@ __pycache__/
 .coverage
 
 *.egg-info/
+
+.gemini/
+gha-creds-*.json

@@ -79,6 +79,8 @@ To send Direct Messages, you need an **X Developer Account**.
 | `X_ACCESS_SECRET` | **Access Token Secret** | Displayed immediately after clicking Generate. |
 | `X_RECIPIENT_ID` | **User ID** | Displayed next to your username once tokens are generated. |
 
+X_RECIPIENT_ID via https://twiteridfinder.com
+
 ## Usage
 Run the application using `uv`:
 ```bash
