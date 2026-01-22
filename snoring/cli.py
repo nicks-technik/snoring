@@ -44,6 +44,18 @@ async def run_app():
     except (ValueError, TypeError):
         zcr_threshold = 0.1
 
+    spectral_centroid_threshold_str = os.getenv("SPECTRAL_CENTROID_THRESHOLD", "1500.0")
+    try:
+        spectral_centroid_threshold = float(spectral_centroid_threshold_str)
+    except (ValueError, TypeError):
+        spectral_centroid_threshold = 1500.0
+
+    min_consecutive_chunks_str = os.getenv("MIN_CONSECUTIVE_CHUNKS", "3")
+    try:
+        min_consecutive_chunks = int(min_consecutive_chunks_str)
+    except (ValueError, TypeError):
+        min_consecutive_chunks = 3
+
     fritz_enabled = os.getenv("FRITZ_ENABLED", "False").lower() == "true"
     fritz_address = os.getenv("FRITZ_ADDRESS")
     fritz_user = os.getenv("FRITZ_USER")
@@ -127,7 +139,9 @@ async def run_app():
             threshold=threshold,
             notifier=notifiers,
             cooldown_seconds=interval,
-            zcr_threshold=zcr_threshold
+            zcr_threshold=zcr_threshold,
+            spectral_centroid_threshold=spectral_centroid_threshold,
+            min_consecutive_chunks=min_consecutive_chunks
         )
         await detector.start_loop_async()
     except Exception as e:
