@@ -8,4 +8,4 @@
     *   Implement consecutive chunk logic. [c5bbbde]
 4.  [x] **Detector Tests**: Update `tests/test_detector.py` to cover new logic (centroid filtering + consecutive chunks). [c5bbbde]
 5.  [x] **CLI/Main Update**: Update `main.py` (and `cli.py` arguments) to pass `sample_rate` to detector (needed for centroid) and expose new parameters. [8bd28f1]
-6.  [ ] **Verification**: Run all tests to ensure no regression and verify improvement.
+6.  [x] **Verification**: Run all tests to ensure no regression and verify improvement. [N/A]
