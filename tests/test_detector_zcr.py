@@ -10,7 +10,11 @@ async def test_snore_detector_zcr_filtering():
     
     # Mock audio_utils functions
     with mock.patch('snoring.detector.calculate_rms') as mock_rms, \
-         mock.patch('snoring.detector.calculate_zcr') as mock_zcr:
+         mock.patch('snoring.detector.calculate_zcr') as mock_zcr, \
+         mock.patch('snoring.detector.calculate_spectral_centroid') as mock_centroid:
+        
+        # Default mock centroid to be low (valid)
+        mock_centroid.return_value = 500.0
         
         # Case 1: RMS high, ZCR low (Snore) -> Should detect
         mock_rms.return_value = 1000.0 # > threshold
@@ -21,7 +25,8 @@ async def test_snore_detector_zcr_filtering():
             recorder=mock_recorder,
             threshold=500.0,
             on_detection=callback,
-            zcr_threshold=0.1
+            zcr_threshold=0.1,
+            min_consecutive_chunks=1
         )
         
         await detector.step_async()
@@ -58,20 +63,23 @@ async def test_snore_detector_alert_message_format():
     
     # Mock audio_utils functions
     with mock.patch('snoring.detector.calculate_rms') as mock_rms, \
-         mock.patch('snoring.detector.calculate_zcr') as mock_zcr:
+         mock.patch('snoring.detector.calculate_zcr') as mock_zcr, \
+         mock.patch('snoring.detector.calculate_spectral_centroid') as mock_centroid:
         
         mock_rms.return_value = 750.54321 # Should round to 750.54
         mock_zcr.return_value = 0.0412345 # Should round to 0.0412
+        mock_centroid.return_value = 1234.56 # Should round to 1235
         
         detector = SnoreDetector(
             recorder=mock_recorder,
             threshold=500.0,
             notifier=mock_notifier,
             cooldown_seconds=0,
-            zcr_threshold=0.1
+            zcr_threshold=0.1,
+            min_consecutive_chunks=1
         )
         
         await detector.step_async()
         
-        expected_message = "Snoring detected! (RMS: 750.54, ZCR: 0.0412)"
+        expected_message = "Snoring detected! (RMS: 750.54, ZCR: 0.0412, Centroid: 1235Hz)"
         mock_notifier.send_alert.assert_called_once_with(expected_message)
