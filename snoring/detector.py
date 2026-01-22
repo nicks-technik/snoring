@@ -4,7 +4,7 @@ import logging
 import time
 import asyncio
 from typing import Callable, Optional
-from snoring.audio_utils import calculate_rms, calculate_zcr
+from snoring.audio_utils import calculate_rms, calculate_zcr, calculate_spectral_centroid
 
 logger = logging.getLogger(__name__)
 
@@ -18,17 +18,21 @@ class SnoreDetector:
         on_detection: Optional[Callable[[], None]] = None,
         notifier = None,
         cooldown_seconds: int = 60,
-        zcr_threshold: float = 0.1
+        zcr_threshold: float = 0.1,
+        spectral_centroid_threshold: float = 1500.0,
+        min_consecutive_chunks: int = 3
     ):
         """Initializes the snore detector.
 
         Args:
-            recorder: An object with a read_chunk() method.
+            recorder: An object with a read_chunk() method and sample_rate attribute.
             threshold: The RMS threshold above which snoring is detected.
             on_detection: A callback function to execute when snoring is detected.
             notifier: A single notifier instance or a list of notifiers.
             cooldown_seconds: Minimum seconds between alerts.
             zcr_threshold: The maximum Zero-Crossing Rate to consider as snoring.
+            spectral_centroid_threshold: Max spectral centroid (Hz) to consider as snoring.
+            min_consecutive_chunks: Number of consecutive frames required to confirm snoring.
         """
         self.recorder = recorder
         self.threshold = threshold
@@ -44,7 +48,35 @@ class SnoreDetector:
             
         self.cooldown_seconds = cooldown_seconds
         self.zcr_threshold = zcr_threshold
+        self.spectral_centroid_threshold = spectral_centroid_threshold
+        self.min_consecutive_chunks = min_consecutive_chunks
+        
         self.last_alert_time = 0.0
+        self.consecutive_snore_chunks = 0
+
+    def _is_snore_chunk(self, chunk: bytes) -> tuple[bool, float, float, float]:
+        """Analyzes a chunk to determine if it resembles a snore.
+        
+        Returns:
+            Tuple (is_snore, rms, zcr, centroid)
+        """
+        rms = calculate_rms(chunk)
+        zcr = 0.0
+        centroid = 0.0
+
+        if rms > self.threshold:
+            zcr = calculate_zcr(chunk)
+            
+            # Try to get sample rate from recorder, default to 44100 if missing
+            sample_rate = getattr(self.recorder, 'sample_rate', 44100)
+            centroid = calculate_spectral_centroid(chunk, sample_rate)
+            
+            logger.debug(f"Analysis: RMS={rms:.2f}, ZCR={zcr:.4f}, Centroid={centroid:.2f}")
+
+            if zcr <= self.zcr_threshold and centroid <= self.spectral_centroid_threshold:
+                return True, rms, zcr, centroid
+        
+        return False, rms, zcr, centroid
 
     def step(self) -> bool:
         """Performs one step of monitoring: read, analyze, and trigger callback.
@@ -55,20 +87,29 @@ class SnoreDetector:
             True if snoring was detected in this step, False otherwise.
         """
         chunk = self.recorder.read_chunk()
-        rms = calculate_rms(chunk)
+        is_snore, rms, zcr, centroid = self._is_snore_chunk(chunk)
         
-        if rms > self.threshold:
-            # Secondary check: ZCR
-            zcr = calculate_zcr(chunk)
-            logger.info(f"Potential snore detected. RMS: {rms:.2f}, ZCR: {zcr:.4f}")
+        if is_snore:
+            self.consecutive_snore_chunks += 1
+            logger.info(f"Potential snore chunk ({self.consecutive_snore_chunks}/{self.min_consecutive_chunks}). RMS: {rms:.2f}, ZCR: {zcr:.4f}, Centroid: {centroid:.2f}")
             
-            if zcr <= self.zcr_threshold:
-                logger.info(f"[DETECT] Snoring confirmed! RMS: {rms:.2f}, ZCR: {zcr:.4f}")
+            if self.consecutive_snore_chunks >= self.min_consecutive_chunks:
+                # Reset counter after successful detection to avoid spamming every chunk?
+                # Or keep it high? Typically, we might want to alert once per "event".
+                # For now, let's trigger every chunk once threshold is passed, 
+                # but cooldown handles the alerts.
+                # To match "consecutive" strictly, we just return True.
+                
+                # However, for callback `on_detection`, we might want to call it every time
+                # we are in a "snoring state".
+                logger.info(f"[DETECT] Snoring confirmed! RMS: {rms:.2f}, ZCR: {zcr:.4f}, Centroid: {centroid:.2f}")
                 if self.on_detection:
                     self.on_detection()
                 return True
-            else:
-                logger.debug(f"Filtered out (high ZCR). RMS: {rms:.2f}, ZCR: {zcr:.4f}")
+        else:
+            if self.consecutive_snore_chunks > 0:
+                logger.debug(f"Snore sequence broken. Resetting counter.")
+            self.consecutive_snore_chunks = 0
             
         return False
 
@@ -79,15 +120,14 @@ class SnoreDetector:
             True if snoring was detected in this step, False otherwise.
         """
         chunk = self.recorder.read_chunk()
-        rms = calculate_rms(chunk)
+        is_snore, rms, zcr, centroid = self._is_snore_chunk(chunk)
         
-        if rms > self.threshold:
-            # Secondary check: ZCR
-            zcr = calculate_zcr(chunk)
-            logger.info(f"Potential snore detected. RMS: {rms:.2f}, ZCR: {zcr:.4f}")
+        if is_snore:
+            self.consecutive_snore_chunks += 1
+            logger.info(f"Potential snore chunk ({self.consecutive_snore_chunks}/{self.min_consecutive_chunks}). RMS: {rms:.2f}, ZCR: {zcr:.4f}, Centroid: {centroid:.2f}")
             
-            if zcr <= self.zcr_threshold:
-                logger.info(f"[DETECT] Snoring confirmed! RMS: {rms:.2f}, ZCR: {zcr:.4f}")
+            if self.consecutive_snore_chunks >= self.min_consecutive_chunks:
+                logger.info(f"[DETECT] Snoring confirmed! RMS: {rms:.2f}, ZCR: {zcr:.4f}, Centroid: {centroid:.2f}")
                 if self.on_detection:
                     self.on_detection()
                 
@@ -96,7 +136,7 @@ class SnoreDetector:
                     current_time = time.time()
                     if current_time - self.last_alert_time >= self.cooldown_seconds:
                         self.last_alert_time = current_time
-                        message = f"Snoring detected! (RMS: {rms:.2f}, ZCR: {zcr:.4f})"
+                        message = f"Snoring detected! (RMS: {rms:.2f}, ZCR: {zcr:.4f}, Centroid: {centroid:.0f}Hz)"
                         for n in self.notifier:
                             try:
                                 result = n.send_alert(message)
@@ -108,8 +148,10 @@ class SnoreDetector:
                         logger.debug("Alert skipped due to cooldown.")
                 
                 return True
-            else:
-                logger.debug(f"Filtered out (high ZCR). RMS: {rms:.2f}, ZCR: {zcr:.4f}")
+        else:
+            if self.consecutive_snore_chunks > 0:
+                logger.debug(f"Snore sequence broken. Resetting counter.")
+            self.consecutive_snore_chunks = 0
             
         return False
 
