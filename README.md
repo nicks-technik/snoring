@@ -47,21 +47,32 @@ This application monitors audio from your default input device to identify snori
 
 ### Configuration Guide
 
+#### Core Settings
+- **`SENSITIVITY_THRESHOLD`**: RMS volume threshold to trigger detection (default: `500.0`). Lower means more sensitive.
+- **`ZCR_THRESHOLD`**: Zero-Crossing Rate threshold (default: `0.1`). Sounds with a ZCR *below* this value are considered snoring (filtering out high-freq noise like speech).
+- **`SPECTRAL_CENTROID_THRESHOLD`**: Spectral Centroid threshold (default: `1500.0` Hz). Snoring usually has a lower spectral centroid.
+- **`MIN_CONSECUTIVE_CHUNKS`**: Number of consecutive audio chunks that must meet detection criteria to trigger an alert (default: `3`). Reduces false positives from short noises.
+- **`INTERVAL_SECONDS`**: Cooldown time in seconds between alerts (default: `60`).
+
 #### Telegram
+- **`TELEGRAM_ENABLED`**: Set to `True` to enable this notifier (default: `False`).
 - **`TELEGRAM_BOT_TOKEN`**: Create a bot via [@BotFather](https://t.me/botfather) on Telegram. It will provide a token like `123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11`.
 - **`TELEGRAM_CHAT_ID`**: Send a message to your new bot, then visit `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates` to find your `id` in the `chat` object.
 
 #### Fritz!Box
+- **`FRITZ_ENABLED`**: Set to `True` to enable this notifier.
 - **`FRITZ_ADDRESS`**: Usually `192.168.178.1` or `fritz.box`.
 - **`FRITZ_USER`**: A user created in **System > Fritz!Box Users**. Ensure "Telephony" rights are enabled.
 - **`FRITZ_TARGET_NUMBER`**: The internal number of the device to ring (e.g., `**610`). Found in **Telephony > Telephony Devices**.
 - **Note**: Ensure **Telephony > Calls > Dialing Help (Wählhilfe)** is enabled in the Fritz!Box UI.
 
 #### LINE
+- **`LINE_ENABLED`**: Set to `True` to enable this notifier.
 - **`LINE_CHANNEL_ACCESS_TOKEN`** & **`LINE_CHANNEL_SECRET`**: Create a Messaging API channel in the [LINE Developers Console](https://developers.line.biz/console/). Tokens are in the "Messaging API" and "Basic settings" tabs.
 - **`LINE_USER_ID`**: Found at the bottom of the "Messaging API" tab in the LINE Developers Console (Your user ID).
 
 #### X.com (Twitter)
+- **`X_ENABLED`**: Set to `True` to enable this notifier.
 To send Direct Messages, you need an **X Developer Account**.
 1.  **Set Permissions First:** 
     -   In the [X Developer Portal](https://developer.x.com/), go to **App Settings > User authentication settings > Edit**.
@@ -113,9 +124,10 @@ $env:PYTHONPATH = "."; uv run pytest --cov=snoring
   - `audio_recorder.py`: Audio capture using PyAudio.
   - `audio_utils.py`: Numerical analysis (RMS, ZCR) using NumPy and Librosa.
   - `detector.py`: Detection orchestration and notifier management.
-  - `notifier.py`: Telegram integration.
+  - `telegram_notifier.py`: Telegram integration.
   - `fritz_notifier.py`: Fritz!Box TR-064 integration.
   - `line_notifier.py`: LINE Messaging API integration.
+  - `x_notifier.py`: X.com (Twitter) integration.
   - `cli.py`: CLI entry point and configuration loading.
 - `tests/`: Unit and integration tests.
 - `conductor/`: Project management, specifications, and implementation tracks.
