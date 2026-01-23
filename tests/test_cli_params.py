@@ -9,6 +9,7 @@ from snoring.cli import run_app
 @mock.patch('snoring.cli.SnoreDetector')
 async def test_cli_passes_new_params(mock_detector_class, mock_telegram_class, mock_recorder_class, mock_dotenv):
     with mock.patch.dict('os.environ', {
+        'TELEGRAM_ENABLED': 'True',
         'TELEGRAM_BOT_TOKEN': 'test_token',
         'TELEGRAM_CHAT_ID': 'test_chat_id',
         'SPECTRAL_CENTROID_THRESHOLD': '1800.0',
@@ -30,6 +31,7 @@ async def test_cli_passes_new_params(mock_detector_class, mock_telegram_class, m
 @mock.patch('snoring.cli.SnoreDetector')
 async def test_cli_defaults_for_new_params(mock_detector_class, mock_telegram_class, mock_recorder_class, mock_dotenv):
     with mock.patch.dict('os.environ', {
+        'TELEGRAM_ENABLED': 'True',
         'TELEGRAM_BOT_TOKEN': 'test_token',
         'TELEGRAM_CHAT_ID': 'test_chat_id'
         # No new params set
