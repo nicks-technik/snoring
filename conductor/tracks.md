@@ -4,10 +4,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-## [x] Track: Refactor Notifiers
-Rename notifier.py to telegram_notifier.py for consistency and update all references.
-- [Track Folder](./tracks/refactor_notifiers_20260122/index.md)
-
 ---
 
 ## [x] Track: Improve Snore Detection Algorithm
