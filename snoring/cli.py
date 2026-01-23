@@ -6,7 +6,7 @@ import logging
 from dotenv import load_dotenv
 from snoring.audio_recorder import AudioRecorder
 from snoring.detector import SnoreDetector
-from snoring.notifier import TelegramNotifier
+from snoring.telegram_notifier import TelegramNotifier
 from snoring.fritz_notifier import FritzNotifier
 from snoring.line_notifier import LineNotifier
 from snoring.x_notifier import XNotifier

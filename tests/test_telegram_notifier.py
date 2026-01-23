@@ -1,11 +1,11 @@
 import unittest.mock as mock
 import pytest
-from snoring.notifier import TelegramNotifier
+from snoring.telegram_notifier import TelegramNotifier
 from telegram import Bot
 
 @pytest.mark.asyncio
 async def test_telegram_notifier_send_alert():
-    with mock.patch('snoring.notifier.Bot') as mock_bot:
+    with mock.patch('snoring.telegram_notifier.Bot') as mock_bot:
         bot_instance = mock_bot.return_value
         bot_instance.send_message = mock.AsyncMock()
         
@@ -20,7 +20,7 @@ async def test_telegram_notifier_send_alert():
 
 @pytest.mark.asyncio
 async def test_telegram_notifier_send_alert_failure():
-    with mock.patch('snoring.notifier.Bot') as mock_bot:
+    with mock.patch('snoring.telegram_notifier.Bot') as mock_bot:
         bot_instance = mock_bot.return_value
         bot_instance.send_message = mock.AsyncMock(side_effect=Exception("API Error"))
         
