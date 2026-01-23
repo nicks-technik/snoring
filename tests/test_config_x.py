@@ -15,6 +15,7 @@ async def test_cli_x_notifier_integration(mock_getenv, mock_detector, mock_x, mo
     # Setup returns for getenv
     def getenv_side_effect(key, default=None):
         vals = {
+            "TELEGRAM_ENABLED": "True",
             "TELEGRAM_BOT_TOKEN": "t",
             "TELEGRAM_CHAT_ID": "c",
             "X_ENABLED": "True",
