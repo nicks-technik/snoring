@@ -24,6 +24,7 @@ async def run_app():
     setup_logging()
     load_dotenv()
     
+    telegram_enabled = os.getenv("TELEGRAM_ENABLED", "False").lower() == "true"
     token = os.getenv("TELEGRAM_BOT_TOKEN")
     chat_id = os.getenv("TELEGRAM_CHAT_ID")
     threshold_str = os.getenv("SENSITIVITY_THRESHOLD", "500.0")
@@ -79,17 +80,18 @@ async def run_app():
     x_access_secret = os.getenv("X_ACCESS_SECRET")
     x_recipient_id = os.getenv("X_RECIPIENT_ID")
     
-    if not token or not chat_id:
-        logging.error("Telegram token or Chat ID not found in environment.")
-        return
-
     recorder = None
     try:
         recorder = AudioRecorder()
         
         notifiers = []
-        # Setup Telegram Notifier
-        notifiers.append(TelegramNotifier(token=token, chat_id=chat_id))
+        # Setup Telegram Notifier if enabled
+        if telegram_enabled:
+            if token and chat_id:
+                notifiers.append(TelegramNotifier(token=token, chat_id=chat_id))
+                logging.info("Telegram notifier enabled.")
+            else:
+                logging.error("Telegram enabled but token or Chat ID not found in environment.")
         
         # Setup X.com Notifier if enabled
         if x_enabled:
