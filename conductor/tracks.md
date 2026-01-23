@@ -4,6 +4,12 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
+## [~] Track: Update Documentation
+Update project documentation to match codebase state, including fixing file references and adding missing components.
+- [Track Folder](./tracks/update_docs_20260123/index.md)
+
+---
+
 ## [x] Track: Add Telegram Enabled Flag
 Add TELEGRAM_ENABLED flag to explicitly control the activation of the Telegram notifier.
 - [Track Folder](./archive/telegram_enabled_flag_20260122/index.md)
