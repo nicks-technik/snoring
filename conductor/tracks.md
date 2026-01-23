@@ -6,7 +6,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ## [x] Track: Add Telegram Enabled Flag
 Add TELEGRAM_ENABLED flag to explicitly control the activation of the Telegram notifier.
-- [Track Folder](./tracks/telegram_enabled_flag_20260122/index.md)
+- [Track Folder](./archive/telegram_enabled_flag_20260122/index.md)
 
 ---
 
