@@ -6,7 +6,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ## [x] Track: Update Documentation
 Update project documentation to match codebase state, including fixing file references and adding missing components.
-- [Track Folder](./tracks/update_docs_20260123/index.md)
+- [Track Folder](./archive/update_docs_20260123/index.md)
 
 ---
 
