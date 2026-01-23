@@ -12,6 +12,7 @@ from snoring.cli import run_app
 @mock.patch('snoring.cli.SnoreDetector')
 async def test_cli_run_app_success(mock_detector_class, mock_fritz_class, mock_telegram_class, mock_recorder_class, mock_dotenv):
     with mock.patch.dict('os.environ', {
+        'TELEGRAM_ENABLED': 'True',
         'TELEGRAM_BOT_TOKEN': 'test_token',
         'TELEGRAM_CHAT_ID': 'test_chat_id',
         'SENSITIVITY_THRESHOLD': '1000.0',
@@ -55,20 +56,47 @@ async def test_cli_run_app_success(mock_detector_class, mock_fritz_class, mock_t
         mock_detector_class.return_value.start_loop_async.assert_called_once()
         mock_recorder_class.return_value.close.assert_called_once()
 
+@pytest.mark.asyncio
+@mock.patch('snoring.cli.load_dotenv')
+@mock.patch('snoring.cli.AudioRecorder')
+@mock.patch('snoring.cli.TelegramNotifier')
+@mock.patch('snoring.cli.SnoreDetector')
+async def test_cli_run_app_telegram_disabled(mock_detector_class, mock_telegram_class, mock_recorder_class, mock_dotenv):
+    with mock.patch.dict('os.environ', {
+        'TELEGRAM_ENABLED': 'False',
+        'TELEGRAM_BOT_TOKEN': 'test_token',
+        'TELEGRAM_CHAT_ID': 'test_chat_id'
+    }):
+        mock_detector_class.return_value.start_loop_async = mock.AsyncMock()
+        await run_app()
+        mock_telegram_class.assert_not_called()
+        mock_detector_class.assert_called_once()
 
 @pytest.mark.asyncio
+@mock.patch('snoring.cli.AudioRecorder')
 @mock.patch('snoring.cli.os.getenv')
-async def test_cli_run_app_missing_env(mock_getenv):
+@mock.patch('snoring.cli.SnoreDetector')
+@mock.patch('snoring.cli.TelegramNotifier')
+async def test_cli_run_app_missing_env(mock_telegram, mock_detector, mock_getenv, mock_recorder):
     # Mocking side effect to return None for token/chat_id
     def getenv_side_effect(key, default=None):
-        if key in ["TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID"]:
-            return None
-        return default
+        vals = {
+            "TELEGRAM_ENABLED": "True",
+            "TELEGRAM_BOT_TOKEN": None,
+            "TELEGRAM_CHAT_ID": None
+        }
+        return vals.get(key, default)
     mock_getenv.side_effect = getenv_side_effect
     
+    # Mock start_loop_async to return immediately
+    mock_detector.return_value.start_loop_async = mock.AsyncMock()
+
     with mock.patch('snoring.cli.logging.error') as mock_log_error:
         await run_app()
-        mock_log_error.assert_called_with("Telegram token or Chat ID not found in environment.")
+        # It now continues after logging error, so we check if error was logged
+        mock_log_error.assert_any_call("Telegram enabled but token or Chat ID not found in environment.")
+        # Ensure detector started (even if notifier failed, the app might still start without it, or behave as designed)
+        mock_detector.return_value.start_loop_async.assert_called_once()
 
 def test_cli_main_keyboard_interrupt():
     with mock.patch('snoring.cli.asyncio.run', side_effect=KeyboardInterrupt):
