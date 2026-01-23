@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.8] - 2026-01-23
+
+### Added
+- **Explicit Telegram Control:** Added `TELEGRAM_ENABLED` environment variable to explicitly toggle the Telegram notifier.
+
+### Documentation
+- **Comprehensive Updates:** Brought documentation up to date with the current codebase state.
+- **Configuration Guide:** Added detailed descriptions for all core detection settings (`SENSITIVITY_THRESHOLD`, `ZCR_THRESHOLD`, `SPECTRAL_CENTROID_THRESHOLD`, `MIN_CONSECUTIVE_CHUNKS`, `INTERVAL_SECONDS`).
+- **Project Structure:** Corrected file references (e.g., `telegram_notifier.py`, `x_notifier.py`) in `README.md`.
+
 ## [0.1.6] - 2026-01-21
 
 ### Changed
