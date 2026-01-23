@@ -1,0 +1,8 @@
+{
+  "id": "refactor_notifiers_20260122",
+  "name": "Refactor Notifiers",
+  "description": "Rename notifier.py to telegram_notifier.py for consistency and update all references.",
+  "status": "in_progress",
+  "created_at": "2026-01-22",
+  "updated_at": "2026-01-22"
+}
