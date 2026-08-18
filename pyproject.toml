@@ -1,7 +1,7 @@
 [project]
 name = "snoring"
 version = "0.1.8"
-description = "Add your description here"
+description = "Snoring Detector CLI - detect snoring in real-time and trigger automated interventions"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
